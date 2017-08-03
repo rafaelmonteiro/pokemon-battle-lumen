@@ -110,7 +110,7 @@ class Pokemon
     	return [
             [
                 'name'=>'Bulbasaur',
-                'avatar'=>'/img/bulbasaur.png',
+                'avatar'=>'/images/bulbasaur.png',
                 'health'=>65,
                 'agility'=>40,
                 'defense'=>67,
@@ -118,7 +118,7 @@ class Pokemon
             ],
             [
                 'name'=>'Pikachu',
-                'avatar'=>'/img/pikachu.png',
+                'avatar'=>'/images/pikachu.png',
                 'health'=>62,
                 'agility'=>64,
                 'defense'=>58,                
@@ -126,7 +126,7 @@ class Pokemon
             ],
             [   
                 'name'=>'Charmander',
-                'avatar'=>'/img/charmander.png',
+                'avatar'=>'/images/charmander.png',
                 'health'=>64,
                 'agility'=>58,
                 'defense'=>60,
@@ -134,7 +134,7 @@ class Pokemon
             ],
             [   
                 'name'=>'Squirtle',
-                'avatar'=>'/img/squirtle.png',
+                'avatar'=>'/images/squirtle.png',
                 'health'=>60,
                 'agility'=>50,
                 'defense'=>70,
