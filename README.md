@@ -1,30 +1,34 @@
 # pokemon-battle-vue-php
-A simple pokémon battle game made with vue and php
+A simple Pokémon battle game made with VueJS and PHP (Lumen)
 
 ## API structure
 
-| Adress        | Method           | Description  |
+| Route        | Method           | Description  |
 | ------------- |:-------------:| -----:| 
-| /list      | GET | List all available caracteres | 
-| /select      | POST      |  The user selected caracter |
-| /hit | POST | The user selected atack |
+| /all      | GET | List all available characteres | 
+| /select      | POST      |  The user selected character |
+| /hit | POST | The user selected attack |
 
 ### API data structure
-#### /list 
+#### /all 
 ##### Param Out
 ```javascript
 {[
     "name" : "pikachu",
-    "type" : "electricity",
-    "avatar" : "avataurl.extension",
-    "atacks" : [
-        "atack1": {
+    "avatar" : "avatarurl.extension",
+    "attacks" : [
+        "thunderbolt": {
             "power": 50,
-            "acuracy": 85,
-            "quantity": 3
+            "type" : "electric",
+            "accuracy": 70
+        },
+        "tackle": {
+            "power": 30,
+            "type" : "normal",
+            "accuracy": 85
         }
     ],
-    "life" : 75,
+    "health" : 75,
     "agility": 95,
     "defense": 55
 ]}
@@ -41,31 +45,36 @@ A simple pokémon battle game made with vue and php
 {
     "player" : {
         "name" : "pikachu",
-        "type" : "electricity",
-        "avatar" : "avataurl.extension",
-        "atacks" : [
-            "atack1": {
+        "type" : "electric",
+        "avatar" : "avatarurl.extension",
+        "attacks" : [
+            "thunderbolt": {
                 "power": 50,
-                "acuracy": 85,
-                "quantity": 3
+                "type" : "electric",
+                "accuracy": 70
+            },
+            "tackle": {
+                "power": 30,
+                "type" : "normal",
+                "accuracy": 85
             }
         ],
-        "life" : 75,
+        "health" : 75,
         "agility": 95,
         "defense": 55
     },
     "against" : {
         "name" : "charmander",
         "type" : "fire",
-        "avatar" : "avataurl.extension",
-        "atacks" : [
-            "atack1": {
+        "avatar" : "avatarurl.extension",
+        "attacks" : [
+            "flame": {
                 "power": 50,
-                "acuracy": 85,
-                "quantity": 3
+                "type" : "fire",
+                "accuracy": 85
             }
         ],
-        "life" : 75,
+        "health" : 75,
         "agility": 95,
         "defense": 55
     }
@@ -77,12 +86,12 @@ A simple pokémon battle game made with vue and php
 {
 	"player" : {
 		"name" : "pikachu",
-		"currentLife" : 60,
-		"atack" : ["atack1"]
+		"currentHealth" : 60,
+		"attack" : "tackle"
 	},
 	"against" : {
 		"name" : "charmander",
-		"currentLife" : 50
+		"currentHealth" : 50
 	}
 }
 ```
@@ -92,12 +101,16 @@ A simple pokémon battle game made with vue and php
 {
 	"player" : {
 		"name" : "pikachu",
-		"currentLife" : 60		
+		"currentHealth" : 53,
+        "damage" : 5,
+        "desc" : ""
 	},
 	"against" : {
 		"name" : "charmander",
-		"currentLife" : 50,
-		"atack" : ["atack1"]
+		"currentHealth" : 45,
+		"attack" : "flame",
+        "damage" : 7,
+        "desc" : "Critical"
 	}
 }
 ```
