@@ -11,4 +11,6 @@
 |
 */
 
-$app->get('/', 'PokemonController@fight');
+$app->get('/all', 'PokemonController@all');
+$app->post('/select', 'PokemonController@select');
+$app->post('/hit', 'PokemonController@fight');

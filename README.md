@@ -5,7 +5,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 
 | Route        | Method           | Description  |
 | ------------- |:-------------:| -----:| 
-| /all      | GET | List all available characteres | 
+| /all      | GET | List all available characters | 
 | /select      | POST      |  The user selected character |
 | /hit | POST | The user selected attack |
 
@@ -14,7 +14,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ##### Param Out
 ```javascript
 {[
-    "name" : "pikachu",
+    "name" : "Pikachu",
     "avatar" : "avatarurl.extension",
     "attacks" : [
         "thunderbolt": {
@@ -37,14 +37,14 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ##### Param In
 ```javascript
 {
-    "name" : "pikachu"
+    "name" : "Pikachu"
 }
 ```
 ##### Param Out
 ```javascript
 {
     "player" : {
-        "name" : "pikachu",
+        "name" : "Pikachu",
         "type" : "electric",
         "avatar" : "avatarurl.extension",
         "attacks" : [
@@ -64,7 +64,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "defense": 55
     },
     "against" : {
-        "name" : "charmander",
+        "name" : "Charmander",
         "type" : "fire",
         "avatar" : "avatarurl.extension",
         "attacks" : [
@@ -85,12 +85,12 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ```javascript
 {
 	"player" : {
-		"name" : "pikachu",
+		"name" : "Pikachu",
 		"currentHealth" : 60,
 		"attack" : "tackle"
 	},
 	"against" : {
-		"name" : "charmander",
+		"name" : "Charmander",
 		"currentHealth" : 50
 	}
 }
@@ -100,13 +100,13 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ```javascript
 {
 	"player" : {
-		"name" : "pikachu",
+		"name" : "Pikachu",
 		"currentHealth" : 53,
         "damage" : 5,
         "desc" : ""
 	},
 	"against" : {
-		"name" : "charmander",
+		"name" : "Charmander",
 		"currentHealth" : 45,
 		"attack" : "flame",
         "damage" : 7,
