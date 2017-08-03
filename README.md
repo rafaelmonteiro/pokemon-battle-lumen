@@ -84,33 +84,35 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ##### Param In
 ```javascript
 {
-	"player" : {
-		"name" : "pikachu",
-		"currentHealth" : 60,
-		"attack" : "tackle"
-	},
-	"against" : {
-		"name" : "charmander",
-		"currentHealth" : 50
-	}
+    "player" : {
+        "name" : "pikachu",
+        "currentHealth" : 60,
+        "attack" : "tackle"
+    },
+    "against" : {
+        "name" : "charmander",
+        "currentHealth" : 50
+    }
 }
 ```
 
 ##### Param Out
 ```javascript
 {
-	"player" : {
-		"name" : "pikachu",
-		"currentHealth" : 53,
+    "player" : {
+        "name" : "pikachu",
+        "currentHealth" : 53,
         "damage" : 5,
         "desc" : ""
-	},
-	"against" : {
-		"name" : "charmander",
-		"currentHealth" : 45,
-		"attack" : "flame",
+    },
+    "against" : {
+        "name" : "charmander",
+        "currentHealth" : 45,
+        "attack" : "flame",
         "damage" : 7,
         "desc" : "Critical"
-	}
+    }
 }
 ```
+### References
+[PokeApi](http://pokeapi.co) and [Bulbapedia](https://bulbapedia.bulbagarden.net)
