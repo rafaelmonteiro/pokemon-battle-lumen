@@ -17,12 +17,14 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
     "name" : "Pikachu",
     "avatar" : "avatarurl.extension",
     "attacks" : [
-        "thunderbolt": {
+        {
+            "name": "thunderbolt",
             "power": 50,
             "type" : "electric",
             "accuracy": 70
         },
-        "tackle": {
+        {
+            "name" : "tackle",
             "power": 30,
             "type" : "normal",
             "accuracy": 85
@@ -48,12 +50,14 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "type" : "electric",
         "avatar" : "avatarurl.extension",
         "attacks" : [
-            "thunderbolt": {
+            {
+                "name": "thunderbolt",
                 "power": 50,
                 "type" : "electric",
                 "accuracy": 70
             },
-            "tackle": {
+            {
+                "name" : "tackle",
                 "power": 30,
                 "type" : "normal",
                 "accuracy": 85
@@ -68,7 +72,8 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "type" : "fire",
         "avatar" : "avatarurl.extension",
         "attacks" : [
-            "flame": {
+            {
+                "name": "flame",
                 "power": 50,
                 "type" : "fire",
                 "accuracy": 85
