@@ -1,15 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/index'
+import selection from '@/components/selection'
+import battle from '@/components/battle'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: index
+      name: 'selection',
+      component: selection
+    },
+    {
+      path: '/battle',
+      name: 'battle',
+      component: battle
     }
   ]
 })
