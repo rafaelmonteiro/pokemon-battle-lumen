@@ -1,0 +1,9 @@
+<template>
+  <div>
+    <div class="page-header">
+      <h1>{{ msg }}</h1>
+    </div>
+  </div>
+</template>
+
+<script src="./health.js"></script
