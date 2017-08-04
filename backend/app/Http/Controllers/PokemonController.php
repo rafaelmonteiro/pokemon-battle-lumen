@@ -77,4 +77,10 @@ class PokemonController extends Controller
 
         echo json_encode($msg);
     }
+
+    public function hit(Request $request)
+    {
+        $model = new Pokemon;
+        return $model->hit2($request);        
+    }
 }

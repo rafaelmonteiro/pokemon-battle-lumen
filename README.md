@@ -32,6 +32,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
     ],
     "health" : 75,
     "agility": 95,
+    "attack": 65,
     "defense": 55
 ]}
 ```
@@ -65,6 +66,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         ],
         "health" : 75,
         "agility": 95,
+        "attack": 65,
         "defense": 55
     },
     "against" : {
@@ -81,6 +83,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         ],
         "health" : 75,
         "agility": 95,
+        "attack": 55,
         "defense": 55
     }
 }
@@ -121,3 +124,16 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ```
 ### References
 [PokeApi](http://pokeapi.co) and [Bulbapedia](https://bulbapedia.bulbagarden.net)
+
+### Local Configuration
+
+#### Frontend 
+
+```
+npm install
+npm run dev
+```
+
+#### Backend
+
+`php -S localhost:8000 -t public/`

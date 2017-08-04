@@ -73,6 +73,54 @@ class Pokemon
 		$opponent->health -= $this->damage;
 	}
 
+    /**
+        Damage Calculation
+        ((2A/5+2)*B*C)/D)/50)+2)*X)*Y/10)*Z)/255
+
+        A = attacker's Level (here we'll consider all Pokemon lvl 30)
+        B = attacker's Attack or Special
+        C = attack Power
+        D = defender's Defense or Special
+        X = same-Type attack bonus (1 or 1.5)
+        Y = Type modifiers (40, 20, 10, 5, 2.5, or 0)
+        Z = a random number between 217 and 255
+    */
+    public function hit2($request)
+    {
+        $playerAttackList = self::getAttacks()[$request->input('player.name')];
+        $playerAttackInfo = $playerAttackList[array_search($request->input('player.attack'), array_column($playerAttackList, 'name'))];
+
+        $cpuAttackList = self::getAttacks()[$request->input('against.name')];
+        $cpuAttackInfo = $cpuAttackList[array_rand($cpuAttackList)];
+
+        $pokemons = self::getPokemons();
+        $playerInfo = $pokemons[array_search($request->input('player.name'), array_column($pokemons, 'name'))];
+        $cpuInfo = $pokemons[array_search($request->input('against.name'), array_column($pokemons, 'name'))];
+
+        $typeModifier = 2.5;
+        $playerDamage = ceil((((((((14*$playerInfo['attack']*$playerAttackInfo['power'])/$cpuInfo['defense'])/50)+2)*1)*$typeModifier/10)*rand(217,255))/255);
+        $cpuDamage = ceil((((((((14*$cpuInfo['attack']*$cpuAttackInfo['power'])/$playerInfo['defense'])/50)+2)*1)*$typeModifier/10)*rand(217,255))/255);
+
+        $playerAttackDescription = '';
+        $cpuAttackDescription = '';
+
+        return [
+            "player"=>[
+                "name" => $request->input('player.name'),
+                "currentHealth" => $request->input('player.currentHealth')-$cpuDamage,
+                "damage" => $playerDamage,
+                "desc" => $playerAttackDescription
+            ],
+            "against"=>[
+                "name" => $request->input('against.name'),
+                "currentHealth" => $request->input('against.currentHealth')-$playerDamage,
+                "attack" => $cpuAttackInfo['name'],
+                "damage" => $cpuDamage,
+                "desc" => $cpuAttackDescription
+            ]
+        ];
+    }
+
 	public function info()
 	{
 		return "{$this->name}: Health: {$this->health}, Power: {$this->power}";
@@ -111,33 +159,37 @@ class Pokemon
             [
                 'name'=>'Bulbasaur',
                 'avatar'=>'/images/bulbasaur.png',
-                'health'=>65,
-                'agility'=>40,
-                'defense'=>67,
+                'health'=>45,
+                'agility'=>45,
+                'attack'=>49,
+                'defense'=>49,
                 'attacks'=>self::getAttacks()['Bulbasaur']
             ],
             [
                 'name'=>'Pikachu',
                 'avatar'=>'/images/pikachu.png',
-                'health'=>62,
-                'agility'=>64,
-                'defense'=>58,                
+                'health'=>35,
+                'agility'=>90,
+                'attack'=>55,
+                'defense'=>40,                
                 'attacks'=>self::getAttacks()['Pikachu']
             ],
             [   
                 'name'=>'Charmander',
                 'avatar'=>'/images/charmander.png',
-                'health'=>64,
-                'agility'=>58,
-                'defense'=>60,
+                'health'=>39,
+                'agility'=>65,
+                'attack'=>52,
+                'defense'=>43,
                 'attacks'=>self::getAttacks()['Charmander']
             ],
             [   
                 'name'=>'Squirtle',
                 'avatar'=>'/images/squirtle.png',
-                'health'=>60,
-                'agility'=>50,
-                'defense'=>70,
+                'health'=>44,
+                'agility'=>43,
+                'attack'=>48,
+                'defense'=>65,
                 'attacks'=>self::getAttacks()['Squirtle']
             ]
         ];
@@ -147,72 +199,84 @@ class Pokemon
     {
         return [
             'Bulbasaur' => [
-                "Tackle" => [
+                [
+                    "name"=>"Tackle",
                     "power"=> 30,
                     "type" => self::getTypes()[self::TYPE_NORMAL],
                     "accuracy"=> 95
                 ],
-                "Vine Whip" => [
+                [
+                    "name"=>"Vine Whip",
                     "power"=> 45,
                     "type" => self::getTypes()[self::TYPE_GRASS],
                     "accuracy"=> 95
                 ],
-                "Razor Leaf" => [
+                [
+                    "name"=>"Razor Leaf",
                     "power"=> 55,
                     "type" => self::getTypes()[self::TYPE_GRASS],
                     "accuracy"=> 90
                 ]                                
             ],
             'Pikachu' => [
-                "Quick Attack" => [
+                [
+                    "name"=>"Quick Attack",
                     "power"=> 35,
                     "type" => self::getTypes()[self::TYPE_NORMAL],
                     "accuracy"=> 95
                 ],
-                "Thunder Shock" => [
+                [
+                    "name"=>"Thunder Shock",
                     "power"=> 40,
                     "type" => self::getTypes()[self::TYPE_ELECTRIC],
                     "accuracy"=> 95
                 ],
-                "Thunderbolt" => [
+                [
+                    "name"=>"Thunderbolt",
                     "power"=> 60,
                     "type" => self::getTypes()[self::TYPE_ELECTRIC],
                     "accuracy"=> 90
                 ]                
             ],
             'Charmander' => [
-                "Scratch" => [
+                [
+                    "name"=>"Scratch",
                     "power"=> 35,
                     "type" => self::getTypes()[self::TYPE_NORMAL],
                     "accuracy"=> 95
                 ],
-                "Ember" => [
+                [
+                    "name"=>"Ember",
                     "power"=> 40,
                     "type" => self::getTypes()[self::TYPE_FIRE],
                     "accuracy"=> 95
                 ],
-                "Flame Burst" => [
+                [
+                    "name"=>"Flame Burst",
                     "power"=> 65,
                     "type" => self::getTypes()[self::TYPE_FIRE],
                     "accuracy"=> 90
                 ]                
             ],
             'Squirtle' => [
-                "Tackle" => [
+                [
+                    "name"=>"Tackle",
                     "power"=> 35,
                     "type" => self::getTypes()[self::TYPE_NORMAL],
                     "accuracy"=> 95
                 ],
-                "Water Gun" => [
+                [
+                    "name"=>"Water Gun",
                     "power"=> 40,
                     "type" => self::getTypes()[self::TYPE_WATER],
                     "accuracy"=> 95
                 ],
-                "Water Pulse" => [
+                [
+                    "name"=>"Water Pulse",
                     "power"=> 60,
                     "type" => self::getTypes()[self::TYPE_WATER],
                     "accuracy"=> 90
-                ]                
+                ]
             ]
         ];
     }

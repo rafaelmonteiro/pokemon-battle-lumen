@@ -13,4 +13,5 @@
 
 $app->get('/all', 'PokemonController@all');
 $app->post('/select', 'PokemonController@select');
-$app->post('/hit', 'PokemonController@fight');
+$app->post('/hit', 'PokemonController@hit');
+$app->post('/fight', 'PokemonController@fight');
