@@ -21,6 +21,12 @@ class Pokemon
 	const TYPE_DRAGON = 14;
 	const TYPE_FAIRY = 15;
 
+    const MSG_CRITICAL = '(CRITICAL Hit!)';
+    const MSG_MISSED = '(Missed!)';
+    const MSG_2XDAMAGE = "It's super effective! ";
+    const MSG_HALF_DAMAGE = "It's not very effective... ";
+    const MSG_NO_DAMAGE = "It's not effective ";
+
     /**
      *   Damage Calculation
      *   ((2A/5+2)*B*C)/D)/50)+2)*X)*Y/10)*Z)/255
@@ -38,13 +44,12 @@ class Pokemon
         $pokemons = self::getPokemons();
         $pokemonNames = array_column($pokemons, 'name');
         $playerInfo = $pokemons[array_search($request->input('player.name'), $pokemonNames)];
-        $playerAttackInfo = $playerInfo['attacks'][array_search($request->input('player.attack'), array_column($playerInfo, 'name'))];
-        
+        $playerAttackInfo = $playerInfo['attacks'][array_search($request->input('player.attack'), array_column($playerInfo['attacks'], 'name'))];    
         $cpuInfo = $pokemons[array_search($request->input('against.name'), $pokemonNames)];
         $cpuAttackInfo = $cpuInfo['attacks'][rand(0,count($cpuInfo['attacks'])-1)];
 
-        $playerTypeModifier = $this->typeModifierCalc();
-        $cpuTypeModifier = $this->typeModifierCalc();
+        $playerTypeModifier = $this->typeModifierCalc($playerAttackInfo,$cpuInfo);
+        $cpuTypeModifier = $this->typeModifierCalc($cpuAttackInfo,$playerInfo);
 
         $playerDamage = ceil((((((((10*$playerInfo['attack']*$playerAttackInfo['power'])/$cpuInfo['defense'])/50)+2)*1)*$playerTypeModifier['type_modifier']/10)*rand(217,255))/255);
         $cpuDamage = ceil((((((((10*$cpuInfo['attack']*$cpuAttackInfo['power'])/$playerInfo['defense'])/50)+2)*1)*$cpuTypeModifier['type_modifier']/10)*rand(217,255))/255);
@@ -66,17 +71,65 @@ class Pokemon
         ];
     }
 
-    private function typeModifierCalc()
+    private function typeModifierCalc($attackInfo,$defenderInfo)
     {
         $attackDescription = '';
         $typeModifier = 10;
         $accuracy = rand(1,100);
+        $types = self::getTypes();
+
+        switch ($defenderInfo['type']) {
+            case $types[self::TYPE_WATER]:
+                if($attackInfo['type'] == $types[self::TYPE_ELECTRIC] || $attackInfo['type'] == $types[self::TYPE_GRASS]){
+                    $typeModifier = 20;
+                    $attackDescription .= self::MSG_2XDAMAGE;                    
+                }
+                if($attackInfo['type'] == $types[self::TYPE_WATER] || $attackInfo['type'] == $types[self::TYPE_FIRE]){
+                    $typeModifier = 2.5;
+                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                }
+                break;
+
+            case $types[self::TYPE_GRASS]: 
+                if($attackInfo['type'] == $types[self::TYPE_FIRE]){
+                    $typeModifier = 20;
+                    $attackDescription .= self::MSG_2XDAMAGE;
+                }
+                if($attackInfo['type'] == $types[self::TYPE_GRASS] || $attackInfo['type'] == $types[self::TYPE_WATER] || $attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
+                    $typeModifier = 2.5;
+                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                }
+                break;                
+
+            case $types[self::TYPE_FIRE]:
+                if($attackInfo['type'] == $types[self::TYPE_WATER]){
+                    $typeModifier = 20;
+                    $attackDescription .= self::MSG_2XDAMAGE;
+                }
+                if($attackInfo['type'] == $types[self::TYPE_FIRE] || $attackInfo['type'] == $types[self::TYPE_GRASS]){
+                    $typeModifier = 2.5;
+                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                }
+                break;
+
+            case $types[self::TYPE_ELECTRIC]:
+                if($attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
+                    $typeModifier = 2.5;
+                    $attackDescription .= self::MSG_HALF_DAMAGE;
+                }
+                break;                                                
+            
+            default:
+                $typeModifier = 10;
+                break;
+        }
+
         if ($accuracy >= 90){
-            $attackDescription .= '(CRITICAL Hit!)';
+            $attackDescription .= self::MSG_CRITICAL;
             $typeModifier *= 1.8;
         }
         else if ($accuracy <= 10){
-            $attackDescription .= '(Missed!)';
+            $attackDescription = self::MSG_MISSED;
             $typeModifier = 0;
         }
 
@@ -108,11 +161,13 @@ class Pokemon
     public static function getPokemons()
     {
         $attacks = self::getAttacks();
+        $types = self::getTypes();
     	return [
             [
                 'name'=>'Bulbasaur',
+                'type'=>$types[self::TYPE_GRASS],
                 'avatar'=>'/images/bulbasaur.png',
-                'health'=>45,
+                'health'=>200,
                 'agility'=>45,
                 'attack'=>49,
                 'defense'=>49,
@@ -120,8 +175,9 @@ class Pokemon
             ],
             [
                 'name'=>'Pikachu',
+                'type'=>$types[self::TYPE_ELECTRIC],
                 'avatar'=>'/images/pikachu.png',
-                'health'=>35,
+                'health'=>185,
                 'agility'=>90,
                 'attack'=>55,
                 'defense'=>40,                
@@ -129,8 +185,9 @@ class Pokemon
             ],
             [   
                 'name'=>'Charmander',
+                'type'=>$types[self::TYPE_FIRE],
                 'avatar'=>'/images/charmander.png',
-                'health'=>39,
+                'health'=>190,
                 'agility'=>65,
                 'attack'=>52,
                 'defense'=>43,
@@ -138,8 +195,9 @@ class Pokemon
             ],
             [   
                 'name'=>'Squirtle',
+                'type'=>$types[self::TYPE_WATER],
                 'avatar'=>'/images/squirtle.png',
-                'health'=>44,
+                'health'=>198,
                 'agility'=>43,
                 'attack'=>48,
                 'defense'=>65,

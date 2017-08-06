@@ -15,6 +15,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
 ```javascript
 {[
     "name" : "Pikachu",
+    "type" : "electric",
     "avatar" : "avatarurl.extension",
     "attacks" : [
         {
