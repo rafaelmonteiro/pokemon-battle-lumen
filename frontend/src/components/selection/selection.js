@@ -7,56 +7,13 @@ export default {
   },
   data () {
     return {
-      players: [
-        {
-          "name" : "Pikachu",
-          "avatar" : "avatarurl.extension",
-          "attacks" : [
-            {
-              "name": "thunderbolt",
-              "power": 50,
-              "type" : "electric",
-              "accuracy": 70
-            },
-            {
-              "name" : "tackle",
-              "power": 30,
-              "type" : "normal",
-              "accuracy": 85
-            }
-          ],
-          "health" : 75,
-          "agility": 95,
-          "defense": 55
-        },
-        {
-          "name" : "Charmander",
-          "avatar" : "avatarurl.extension",
-          "attacks" : [
-            {
-              "name": "thunderbolt",
-              "power": 50,
-              "type" : "electric",
-              "accuracy": 70
-            },
-            {
-              "name" : "tackle",
-              "power": 30,
-              "type" : "normal",
-              "accuracy": 85
-            }
-          ],
-          "health" : 75,
-          "agility": 95,
-          "defense": 55
-        }
-      ]
+      players: []
     }
   },
   created() {
     this.$http.get('all')
     .then(response => { 
-      console.log(response);
+      this.players = response.data;
     }, response => {
 
     });

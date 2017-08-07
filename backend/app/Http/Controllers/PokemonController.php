@@ -26,7 +26,7 @@ class PokemonController extends Controller
     {
         $pokemons = $this->all();
         $key = array_search($request->input('name'), array_column($pokemons, 'name'));
-        if($key != false)
+        if($key !== false)
         {
             return ['player'=>$pokemons[$key],'against'=>$pokemons[array_rand($pokemons)]];
         }

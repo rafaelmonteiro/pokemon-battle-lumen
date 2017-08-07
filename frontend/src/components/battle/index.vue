@@ -1,7 +1,7 @@
 <template>
   <div>
   	<div class="page-header">
-		<h1><span class="hidden-xs">Pokemon Battle</span> <small>{{player.name}}</small> X <small>{{against.name}}</small></h1>
+		<h1><span class="hidden-xs">Pokémon Battle</span> <small>{{player.name}}</small> X <small>{{against.name}}</small></h1>
 	</div>
 	<div class="row">
 	    <div class="col-md-6">

@@ -139,5 +139,9 @@ npm run dev
 
 ```
 composer install
-php -S localhost:8000 -t public/
+php -S localhost:8000 -t public
 ```
+
+#### Notes
+It should only be used in a testing environment, because CORS is allowed for
+`http://localhost:8080` (where frontend will run)

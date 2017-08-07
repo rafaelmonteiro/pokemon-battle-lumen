@@ -12,5 +12,7 @@
 */
 
 $app->get('/all', 'PokemonController@all');
+$app->options('/select', 'PokemonController@select');
 $app->post('/select', 'PokemonController@select');
+$app->options('/hit', 'PokemonController@hit');
 $app->post('/hit', 'PokemonController@hit');

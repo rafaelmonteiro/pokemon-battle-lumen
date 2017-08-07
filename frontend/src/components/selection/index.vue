@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="page-header">
-			<h1>Pokemon Battle <small>select your player</small></h1>
+			<h1>Pokémon Battle <small>select your Pokémon</small></h1>
 		</div>
 	  	<div class="row">
 		  <div v-for="player in players" class="col-md-3">
@@ -14,7 +14,7 @@
 						<span class="label label-info">Defense: {{player.defense}}</span>
 					</p>
  	        	</div>
-				<img src="../../assets/default.png" />
+				<img :src="'http://localhost:8000'+player.avatar" />
 				<div class="caption">
 				<ul title="Attacks" v-if="player.attacks" class="list-group">
 				  <li v-for="attack in player.attacks" class="list-group-item">
