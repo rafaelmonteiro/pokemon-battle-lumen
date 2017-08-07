@@ -2,7 +2,7 @@ export default {
   name: 'selection',
   methods: {
     select(player){
-      this.$router.push({ name: 'battle' })
+      this.$router.push({ name: 'battle', params: { pokemon: player.name } })
     }
   },
   data () {
@@ -57,7 +57,6 @@ export default {
     this.$http.get('all')
     .then(response => { 
       console.log(response);
-      // this.players = JSON.parse(response.body.ahi_dlestadoacao);
     }, response => {
 
     });

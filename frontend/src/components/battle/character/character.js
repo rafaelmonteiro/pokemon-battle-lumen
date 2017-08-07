@@ -2,7 +2,16 @@ export default {
   name: 'character',
   data () {
     return {
-      msg: 'Coming Soon'
+    }
+  },
+  props: {
+  	player: {
+      type: Object,
+      required: true
+    },
+    isCpu:{
+    	type: Boolean,
+    	default: false
     }
   }
 }

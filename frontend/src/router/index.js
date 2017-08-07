@@ -9,12 +9,12 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '*',
       name: 'selection',
       component: selection
     },
     {
-      path: '/battle',
+      path: '/battle/:pokemon',
       name: 'battle',
       component: battle
     }

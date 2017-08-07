@@ -1,22 +1,8 @@
 <template>
   <div>
-    <character></character>
-    <health></health>
-    <scout></scout>
+    <character :player="player"></character>
+    <character :is-cpu="true" :player="against"></character>
   </div>
 </template>
 
-<script>
-import character from './character'
-import health from './health'
-import scout from './scout'
-
-export default {
-  name: 'hello',
-  data () {
-    return { 
-    }
-  },
-  components: { character, health, scout }
-}
-</script>
+<script src="./battle.js"></script>
