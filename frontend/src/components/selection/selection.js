@@ -52,5 +52,14 @@ export default {
         }
       ]
     }
+  },
+  created() {
+    this.$http.get('all')
+    .then(response => { 
+      console.log(response);
+      // this.players = JSON.parse(response.body.ahi_dlestadoacao);
+    }, response => {
+
+    });
   }
 }

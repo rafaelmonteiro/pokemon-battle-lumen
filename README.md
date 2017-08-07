@@ -137,4 +137,7 @@ npm run dev
 
 #### Backend
 
-`php -S localhost:8000 -t public/`
+```
+composer install
+php -S localhost:8000 -t public/
+```
