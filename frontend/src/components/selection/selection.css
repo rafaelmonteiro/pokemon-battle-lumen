@@ -13,6 +13,8 @@
 }
 img{
 	max-width: 100px;
+    display: block;
+    margin: auto;
 }
 .title{
 	padding:0 9px; 
@@ -23,4 +25,7 @@ img{
 .thumbnail:hover{
 	border-color: #bce8f1; 
 	background-color: #d9edf7;
+}
+.container-image{
+	height: 120px;
 }

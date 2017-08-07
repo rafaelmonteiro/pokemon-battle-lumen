@@ -7,6 +7,7 @@ export default {
   },
   data () {
     return {
+      apiUrl: this.$http.options.root,
       players: []
     }
   },

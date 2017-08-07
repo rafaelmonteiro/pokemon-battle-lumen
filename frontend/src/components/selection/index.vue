@@ -14,7 +14,9 @@
 						<span class="label label-info">Defense: {{player.defense}}</span>
 					</p>
  	        	</div>
-				<img :src="'http://localhost:8000'+player.avatar" />
+				<div class="container-image">
+					<img :src="apiUrl+player.avatar" />
+				</div>
 				<div class="caption">
 				<ul title="Attacks" v-if="player.attacks" class="list-group">
 				  <li v-for="attack in player.attacks" class="list-group-item">

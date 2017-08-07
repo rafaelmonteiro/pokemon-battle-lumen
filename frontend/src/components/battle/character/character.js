@@ -2,6 +2,7 @@ export default {
   name: 'character',
   data () {
     return {
+      apiUrl: this.$http.options.root
     }
   },
   props: {

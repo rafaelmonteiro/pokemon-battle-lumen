@@ -13,6 +13,8 @@
 }
 img{
 	max-width: 100px;
+    display: block;
+    margin: auto;
 }
 .title{
 	padding:0 9px; 
@@ -29,4 +31,7 @@ h3{
 }
 .progress-bar{
 	line-height: 60px;
+}
+.container-image{
+	height: 120px;
 }
