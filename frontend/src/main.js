@@ -13,7 +13,7 @@ window.jQuery = require('jquery');
 require('bootstrap');
 
 Vue.config.productionTip = false
-Vue.http.options.root = 'http://localhost:8000';
+Vue.http.options.root = 'http://localhost/pokemon-battle-vue-php/backend';
 
 /* eslint-disable no-new */
 new Vue({

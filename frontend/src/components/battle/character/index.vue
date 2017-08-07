@@ -22,4 +22,5 @@
 </div>
 </template>
 
-<script src="./character.js"></script
+<script src="./character.js"></script>
+<style scoped src="./character.css"></style>
