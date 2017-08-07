@@ -20,3 +20,13 @@ img{
 .thumbnail{
 	max-width: 300px;
 }
+h3{
+	margin-bottom: 2px;
+}
+.progress{
+	height: 10px;
+	background-color: red
+}
+.progress-bar{
+	line-height: 60px;
+}

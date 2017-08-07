@@ -2,6 +2,11 @@
 <div class="thumbnail">
 	<div class="title">
 		<h3>{{player.name}}</h3>
+		<div title="Life" class="progress">
+		  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+		    60%
+		  </div>
+		</div>
     	<p>
 			<span class="label label-primary">Health: {{player.health}}</span>
 			<span class="label label-success">Agility: {{player.agility}}</span>
