@@ -113,7 +113,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "currentHealth" : 53,
         "damage" : 5,
         "desc" : "",
-        "desc_id" : 0
+        "desc_id" : 1
     },
     "against" : {
         "name" : "Charmander",
@@ -121,7 +121,7 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "attack" : "flame",
         "damage" : 7,
         "desc" : "Critical Hit",
-        "desc_id" : 1
+        "desc_id" : 3
     }
 }
 ```
