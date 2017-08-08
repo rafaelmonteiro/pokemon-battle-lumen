@@ -18,7 +18,7 @@
 	</div>
 	<div class="caption">
 		<ul title="Attacks" v-if="player.attacks" class="list-group">
-		  <li v-for="attack in player.attacks" class="list-group-item">
+		  <li :title="!isCpu ? 'Click to trigger attack' : ''"  v-for="attack in player.attacks" class="list-group-item" v-bind:class="{ 'attack-click': !isCpu}" v-on:click="hit(attack)" >
 		  	<span class="attack-name">{{attack.name}}</span>
 		  	<span title="Type" class="label label-default">{{attack.type}}</span>
 		  	<span class="label label-danger">Power: {{attack.power}}</span>

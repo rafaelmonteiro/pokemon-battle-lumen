@@ -5,6 +5,12 @@ export default {
       apiUrl: this.$http.options.root
     }
   },
+  methods: {
+    hit(attack){
+      if (this.isCpu) { return; }
+      this.$emit('attack', attack);
+    }
+  },
   props: {
   	player: {
       type: Object,

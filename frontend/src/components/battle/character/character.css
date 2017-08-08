@@ -11,6 +11,13 @@
 .attack-name{
 	display: block;
 }
+.attack-click{
+	cursor: pointer;
+}
+.attack-click:hover{
+	border-color: #bce8f1; 
+	background-color: #d9edf7;
+}
 img{
 	max-width: 100px;
     display: block;

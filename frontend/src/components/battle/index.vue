@@ -5,7 +5,7 @@
 	</div>
 	<div class="row">
 	    <div class="col-md-6">
-		    <character class="player" :player="player"></character>
+		    <character class="player" v-on:attack="attack" :player="player"></character>
 	    </div>
 	    <div class="col-md-6">
 		    <character class="player" :is-cpu="true" :player="against"></character>
