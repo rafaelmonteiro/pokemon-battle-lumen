@@ -29,6 +29,8 @@ export default {
 
       this.$http.post('hit', this.formatData(attack))
       .then(response => { 
+        response.data.player.attack = attack.name;
+
         this.actions.player.splice(0, 0, response.data.player);
         this.currentHealth.against = response.data.against.currentHealth;
 

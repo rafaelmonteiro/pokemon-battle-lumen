@@ -1,0 +1,8 @@
+.panel-heading{
+	font-size: 0.9em;
+    padding: 3px 5px;
+}
+.panel-body{
+	height: 150px;
+	overflow: auto;
+}
