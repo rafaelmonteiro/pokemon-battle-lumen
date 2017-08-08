@@ -112,17 +112,33 @@ A simple Pokémon battle game made with VueJS and PHP (Lumen)
         "name" : "Pikachu",
         "currentHealth" : 53,
         "damage" : 5,
-        "desc" : ""
+        "desc" : "",
+        "desc_id" : 0
     },
     "against" : {
         "name" : "Charmander",
         "currentHealth" : 45,
         "attack" : "flame",
         "damage" : 7,
-        "desc" : "Critical"
+        "desc" : "Critical Hit",
+        "desc_id" : 1
     }
 }
 ```
+
+##### Hit description IDs (desc_id)
+
+| Id | Description  |
+| --:|--------------|
+| 1  | Normal | 
+| 2  | Missed | 
+| 3  | Critical Hit | 
+| 4  | Super effective attack | 
+| 5  | Not very effective attack | 
+| 6  | Not effective attack | 
+| 12 | Super effective and critical attack | 
+| 15 | Not very effective but critical attack | 
+
 ### References
 [PokeApi](http://pokeapi.co) and [Bulbapedia](https://bulbapedia.bulbagarden.net)
 

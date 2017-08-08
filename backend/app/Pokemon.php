@@ -27,6 +27,15 @@ class Pokemon
     const MSG_HALF_DAMAGE = "It's not very effective... ";
     const MSG_NO_DAMAGE = "It's not effective ";
 
+    const DESCRIPTION_ID_NORMAL = 1;
+    const DESCRIPTION_ID_MISSED = 2;
+    const DESCRIPTION_ID_CRITICAL = 3;
+    const DESCRIPTION_ID_2XDAMAGE = 4;
+    const DESCRIPTION_ID_HALF_DAMAGE = 5;
+    const DESCRIPTION_ID_NO_DAMAGE = 6;
+    const DESCRIPTION_ID_CRITICAL_2XDAMAGE = 12;
+    const DESCRIPTION_ID_CRITICAL_HALF_DAMAGE = 15;
+
     /**
      *   Damage Calculation
      *   ((2A/5+2)*B*C)/D)/50)+2)*X)*Y/10)*Z)/255
@@ -59,14 +68,16 @@ class Pokemon
                 "name" => $request->input('player.name'),
                 "currentHealth" => $request->input('player.currentHealth')-$cpuDamage,
                 "damage" => $playerDamage,
-                "desc" => $playerTypeModifier['desc']
+                "desc" => $playerTypeModifier['desc'],
+                "desc_id" => $playerTypeModifier['desc_id'],
             ],
             "against"=>[
                 "name" => $request->input('against.name'),
                 "currentHealth" => $request->input('against.currentHealth')-$playerDamage,
                 "attack" => $cpuAttackInfo['name'],
                 "damage" => $cpuDamage,
-                "desc" => $cpuTypeModifier['desc']
+                "desc" => $cpuTypeModifier['desc'],
+                "desc_id" => $cpuTypeModifier['desc_id'],
             ]
         ];
     }
@@ -74,6 +85,7 @@ class Pokemon
     private function typeModifierCalc($attackInfo,$defenderInfo)
     {
         $attackDescription = '';
+        $descriptionId = self::DESCRIPTION_ID_NORMAL;
         $typeModifier = 10;
         $accuracy = rand(1,100);
         $types = self::getTypes();
@@ -81,59 +93,65 @@ class Pokemon
         switch ($defenderInfo['type']) {
             case $types[self::TYPE_WATER]:
                 if($attackInfo['type'] == $types[self::TYPE_ELECTRIC] || $attackInfo['type'] == $types[self::TYPE_GRASS]){
-                    $typeModifier = 20;
-                    $attackDescription .= self::MSG_2XDAMAGE;                    
+                    $descriptionId = self::DESCRIPTION_ID_2XDAMAGE;
                 }
                 if($attackInfo['type'] == $types[self::TYPE_WATER] || $attackInfo['type'] == $types[self::TYPE_FIRE]){
-                    $typeModifier = 2.5;
-                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                    $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
                 break;
 
             case $types[self::TYPE_GRASS]: 
                 if($attackInfo['type'] == $types[self::TYPE_FIRE]){
-                    $typeModifier = 20;
-                    $attackDescription .= self::MSG_2XDAMAGE;
+                    $descriptionId = self::DESCRIPTION_ID_2XDAMAGE;
                 }
                 if($attackInfo['type'] == $types[self::TYPE_GRASS] || $attackInfo['type'] == $types[self::TYPE_WATER] || $attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
-                    $typeModifier = 2.5;
-                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                    $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
                 break;                
 
             case $types[self::TYPE_FIRE]:
                 if($attackInfo['type'] == $types[self::TYPE_WATER]){
-                    $typeModifier = 20;
-                    $attackDescription .= self::MSG_2XDAMAGE;
+                    $descriptionId = self::DESCRIPTION_ID_2XDAMAGE;
                 }
                 if($attackInfo['type'] == $types[self::TYPE_FIRE] || $attackInfo['type'] == $types[self::TYPE_GRASS]){
-                    $typeModifier = 2.5;
-                    $attackDescription .= self::MSG_HALF_DAMAGE;                
+                    $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
                 break;
 
             case $types[self::TYPE_ELECTRIC]:
                 if($attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
-                    $typeModifier = 2.5;
-                    $attackDescription .= self::MSG_HALF_DAMAGE;
+                    $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
-                break;                                                
-            
-            default:
-                $typeModifier = 10;
+                break;                                                            
+        }
+
+        switch($descriptionId){
+            case self::DESCRIPTION_ID_HALF_DAMAGE:
+                $typeModifier = 2.5;
+                $attackDescription .= self::MSG_HALF_DAMAGE;
+                break;
+            case self::DESCRIPTION_ID_2XDAMAGE:
+                $typeModifier = 20;
+                $attackDescription .= self::MSG_2XDAMAGE;
+                break;
+            case self::DESCRIPTION_ID_NO_DAMAGE:
+                $typeModifier = 0;
+                $attackDescription .= self::MSG_NO_DAMAGE;
                 break;
         }
 
         if ($accuracy >= 90){
+            $descriptionId *= self::DESCRIPTION_ID_CRITICAL;
             $attackDescription .= self::MSG_CRITICAL;
             $typeModifier *= 1.8;
         }
         else if ($accuracy <= 10){
+            $descriptionId = self::DESCRIPTION_ID_MISSED;
             $attackDescription = self::MSG_MISSED;
             $typeModifier = 0;
         }
 
-        return ['desc'=>$attackDescription,'type_modifier'=>$typeModifier];
+        return ['desc'=>$attackDescription,'desc_id'=>$descriptionId,'type_modifier'=>$typeModifier];
     }
 
 	public static function getTypes() 
