@@ -1,5 +1,5 @@
 <template>
-<div class="thumbnail">
+<div class="thumbnail" :class="condition.class" :title="condition.title">
 	<div class="title">
 		<h3>{{player.name}}</h3>
 		<div title="Life" class="progress">

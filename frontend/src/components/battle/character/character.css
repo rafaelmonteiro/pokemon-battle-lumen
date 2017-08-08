@@ -39,3 +39,11 @@ h3{
 .container-image{
 	height: 120px;
 }
+.warning{
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+}
+.danger{
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
