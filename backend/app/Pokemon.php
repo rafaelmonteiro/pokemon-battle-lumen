@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Pokemon 
+class Pokemon
 {
     const TYPE_NORMAL = 0;
 	const TYPE_FIRE = 1;
@@ -53,7 +53,7 @@ class Pokemon
         $pokemons = self::getPokemons();
         $pokemonNames = array_column($pokemons, 'name');
         $playerInfo = $pokemons[array_search($request->input('player.name'), $pokemonNames)];
-        $playerAttackInfo = $playerInfo['attacks'][array_search($request->input('player.attack'), array_column($playerInfo['attacks'], 'name'))];    
+        $playerAttackInfo = $playerInfo['attacks'][array_search($request->input('player.attack'), array_column($playerInfo['attacks'], 'name'))];
         $cpuInfo = $pokemons[array_search($request->input('against.name'), $pokemonNames)];
         $cpuAttackInfo = $cpuInfo['attacks'][rand(0,count($cpuInfo['attacks'])-1)];
 
@@ -100,14 +100,14 @@ class Pokemon
                 }
                 break;
 
-            case $types[self::TYPE_GRASS]: 
+            case $types[self::TYPE_GRASS]:
                 if($attackInfo['type'] == $types[self::TYPE_FIRE]){
                     $descriptionId = self::DESCRIPTION_ID_2XDAMAGE;
                 }
                 if($attackInfo['type'] == $types[self::TYPE_GRASS] || $attackInfo['type'] == $types[self::TYPE_WATER] || $attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
                     $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
-                break;                
+                break;
 
             case $types[self::TYPE_FIRE]:
                 if($attackInfo['type'] == $types[self::TYPE_WATER]){
@@ -122,7 +122,7 @@ class Pokemon
                 if($attackInfo['type'] == $types[self::TYPE_ELECTRIC]){
                     $descriptionId = self::DESCRIPTION_ID_HALF_DAMAGE;
                 }
-                break;                                                            
+                break;
         }
 
         switch($descriptionId){
@@ -154,7 +154,7 @@ class Pokemon
         return ['desc'=>$attackDescription,'desc_id'=>$descriptionId,'type_modifier'=>$typeModifier];
     }
 
-	public static function getTypes() 
+	public static function getTypes()
 	{
         return array(
             self::TYPE_NORMAL => 'normal',
@@ -183,43 +183,119 @@ class Pokemon
     	return [
             [
                 'name'=>'Bulbasaur',
-                'type'=>$types[self::TYPE_GRASS],
+                'type'=>'grass',
                 'avatar'=>'/images/bulbasaur.png',
                 'health'=>200,
                 'agility'=>45,
                 'attack'=>49,
                 'defense'=>49,
-                'attacks'=>$attacks['Bulbasaur']
+                'attacks'=>[
+                    [
+                        "name"=>"Tackle",
+                        "power"=> 30,
+                        "type" => 'normal',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Vine Whip",
+                        "power"=> 45,
+                        "type" => 'grass',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Razor Leaf",
+                        "power"=> 55,
+                        "type" => 'grass',
+                        "accuracy"=> 90
+                    ]
+                ]
             ],
             [
                 'name'=>'Pikachu',
-                'type'=>$types[self::TYPE_ELECTRIC],
+                'type'=>'electric',
                 'avatar'=>'/images/pikachu.png',
                 'health'=>185,
                 'agility'=>90,
                 'attack'=>55,
-                'defense'=>40,                
-                'attacks'=>$attacks['Pikachu']
+                'defense'=>40,
+                'attacks'=>[
+                    [
+                        "name"=>"Quick Attack",
+                        "power"=> 35,
+                        "type" => 'normal',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Thunder Shock",
+                        "power"=> 40,
+                        "type" => 'electric',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Thunderbolt",
+                        "power"=> 60,
+                        "type" => 'electric',
+                        "accuracy"=> 90
+                    ]
+                ]
             ],
-            [   
+            [
                 'name'=>'Charmander',
-                'type'=>$types[self::TYPE_FIRE],
+                'type'=>'fire',
                 'avatar'=>'/images/charmander.png',
                 'health'=>190,
                 'agility'=>65,
                 'attack'=>52,
                 'defense'=>43,
-                'attacks'=>$attacks['Charmander']
+                'attacks'=>[
+                    [
+                        "name"=>"Scratch",
+                        "power"=> 35,
+                        "type" => 'normal',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Ember",
+                        "power"=> 40,
+                        "type" => 'fire',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Flame Burst",
+                        "power"=> 65,
+                        "type" => 'fire',
+                        "accuracy"=> 90
+                    ]
+                ]
             ],
-            [   
+            [
                 'name'=>'Squirtle',
-                'type'=>$types[self::TYPE_WATER],
+                'type'=>'water',
                 'avatar'=>'/images/squirtle.png',
                 'health'=>198,
                 'agility'=>43,
                 'attack'=>48,
                 'defense'=>65,
-                'attacks'=>$attacks['Squirtle']
+                'attacks'=>[
+                    [
+                        "name"=>"Tackle",
+                        "power"=> 35,
+                        "type" => 'normal',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Water Gun",
+                        "power"=> 40,
+                        "type" => 'water',
+                        "accuracy"=> 95
+                    ],
+                    [
+                        "name"=>"Water Pulse",
+                        "power"=> 60,
+                        "type" => 'water',
+                        "accuracy"=> 90
+                    ]
+                ]
             ]
         ];
     }
@@ -238,15 +314,15 @@ class Pokemon
                 [
                     "name"=>"Vine Whip",
                     "power"=> 45,
-                    "type" => $types[self::TYPE_GRASS],
+                    "type" => 'grass',
                     "accuracy"=> 95
                 ],
                 [
                     "name"=>"Razor Leaf",
                     "power"=> 55,
-                    "type" => $types[self::TYPE_GRASS],
+                    "type" => 'grass',
                     "accuracy"=> 90
-                ]                                
+                ]
             ],
             'Pikachu' => [
                 [
@@ -266,7 +342,7 @@ class Pokemon
                     "power"=> 60,
                     "type" => $types[self::TYPE_ELECTRIC],
                     "accuracy"=> 90
-                ]                
+                ]
             ],
             'Charmander' => [
                 [
@@ -286,7 +362,7 @@ class Pokemon
                     "power"=> 65,
                     "type" => $types[self::TYPE_FIRE],
                     "accuracy"=> 90
-                ]                
+                ]
             ],
             'Squirtle' => [
                 [
@@ -298,13 +374,13 @@ class Pokemon
                 [
                     "name"=>"Water Gun",
                     "power"=> 40,
-                    "type" => $types[self::TYPE_WATER],
+                    "type" => 'water',
                     "accuracy"=> 95
                 ],
                 [
                     "name"=>"Water Pulse",
                     "power"=> 60,
-                    "type" => $types[self::TYPE_WATER],
+                    "type" => 'water',
                     "accuracy"=> 90
                 ]
             ]

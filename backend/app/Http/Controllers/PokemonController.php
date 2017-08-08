@@ -4,31 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Pokemon;
 use Illuminate\Http\Request;
+use App\Repository\PokemonRepository;
 
 class PokemonController extends Controller
 {
+    private $pokemonRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PokemonRepository $pokemonRepository)
     {
-        //
+        $this->pokemonRepository = $pokemonRepository;
     }
-    
+
     public function all()
     {
-        return Pokemon::getPokemons();
+        return $this->pokemonRepository->getAll();
     }
 
     public function select(Request $request)
     {
+        $pokemon = $this->pokemonRepository->findByName($request->input('name'));
+
         $pokemons = $this->all();
-        $key = array_search($request->input('name'), array_column($pokemons, 'name'));
-        if($key !== false)
+
+        if (!empty($pokemon))
         {
-            return ['player'=>$pokemons[$key],'against'=>$pokemons[array_rand($pokemons)]];
+            return ['player'=>$pokemon, 'against' => $this->pokemonRepository->getRandom()];
         }
         return ['errors'=>'Please select a valid Pokemon'];
     }
@@ -36,6 +40,6 @@ class PokemonController extends Controller
     public function hit(Request $request)
     {
         $model = new Pokemon;
-        return $model->hit($request);        
+        return $model->hit($request);
     }
 }
