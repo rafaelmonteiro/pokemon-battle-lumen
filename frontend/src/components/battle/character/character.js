@@ -15,7 +15,7 @@ export default {
       }
 
       if (this.lifeStatus < 51) {
-        return { class: 'warning', title: this.player.name + " doesn't have to much health left" }
+        return { class: 'warning', title: this.player.name + " doesn't have too much health left" }
       }
 
       return { class: '', title: this.player.name + " is in a good condition" }
