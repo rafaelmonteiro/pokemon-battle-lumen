@@ -1,11 +1,13 @@
 import character from './character'
+import actions from './actions'
 
 export default {
   name: 'battle',
   data () {
     return {
-    	player : {}, 
-    	against : {} 
+    	player : { }, 
+    	against : { },
+      actions: { player:[], against:[] } 
     }
   },
   methods: {
@@ -25,14 +27,21 @@ export default {
 
       this.$http.post('hit', action)
       .then(response => { 
-        console.log(response)
+        this.actions.player.push(response.data.player);
+
+        setTimeout(() => {
+          this.actions.against.push(response.data.against)
+        }, 2000);
+        
       }, response => {
 
       });
     },
     start(){
       this.player.currentHealth = this.player.health;
+      this.actions.player = [];
       this.against.currentHealth = this.against.health;
+      this.actions.against = [];
     }
   },
   created() {
@@ -45,5 +54,5 @@ export default {
 
     });
   },
-  components: { character }
+  components: { character, actions }
 }

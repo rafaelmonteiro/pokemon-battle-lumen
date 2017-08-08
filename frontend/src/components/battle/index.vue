@@ -5,10 +5,16 @@
 	</div>
 	<div class="row">
 	    <div class="col-md-6">
-		    <character class="player" v-on:attack="attack" :player="player"></character>
+		    <div class="player">
+		    	<character v-on:attack="attack" :player="player"></character>
+		    	<actions :items="actions.player" ></actions>
+		    </div>
 	    </div>
 	    <div class="col-md-6">
-		    <character class="player" :is-cpu="true" :player="against"></character>
+		    <div class="player">
+		    	<character :is-cpu="true" :player="against"></character>
+		    	<actions :items="actions.against" ></actions>
+		    </div>
 	    </div>
 	</div>
   </div>

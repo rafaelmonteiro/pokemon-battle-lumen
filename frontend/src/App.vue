@@ -11,16 +11,6 @@ export default {
 </script>
 
 <style>
-  #app{
-    position: fixed;
-    top: 0;
-    left: 0;
-    /*background-image: url("./assets/stage.jpg");*/
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-  }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
