@@ -5,6 +5,11 @@ export default {
       apiUrl: this.$http.options.root
     }
   },
+  computed: {
+    lifeStatus: function () {
+      return ((100*this.currentHealth)/this.player.health).toFixed(0);
+    }
+  },
   methods: {
     hit(attack){
       if (this.isCpu) { return; }
@@ -19,6 +24,10 @@ export default {
     isCpu:{
     	type: Boolean,
     	default: false
+    },
+    currentHealth:{
+      type: Number,
+      default: 0
     }
   }
 }

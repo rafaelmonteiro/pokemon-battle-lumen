@@ -7,30 +7,34 @@ export default {
     return {
     	player : { }, 
     	against : { },
-      actions: { player:[], against:[] } 
+      actions: { player:[], against:[] },
+      currentHealth: { player: 0, against: 0 }
     }
   },
   methods: {
-    attack(attack){
-
-      let action = {
+    formatData(attack){
+      return {
         player : {
           name : this.player.name,
-          currentHealth : this.player.currentHealth,
+          currentHealth : this.currentHealth.player,
           attack : attack.name
         },
         against : {
           name : this.against.name,
-          currentHealth : this.against.currentHealth
+          currentHealth : this.currentHealth.against
         }
       }
+    },
+    attack(attack){
 
-      this.$http.post('hit', action)
+      this.$http.post('hit', this.formatData(attack))
       .then(response => { 
-        this.actions.player.push(response.data.player);
+        this.actions.player.splice(0, 0, response.data.player);
+        this.currentHealth.against = response.data.against.currentHealth;
 
         setTimeout(() => {
-          this.actions.against.push(response.data.against)
+          this.actions.against.splice(0, 0, response.data.against);
+          this.currentHealth.player = response.data.player.currentHealth;
         }, 2000);
         
       }, response => {
@@ -38,9 +42,9 @@ export default {
       });
     },
     start(){
-      this.player.currentHealth = this.player.health;
+      this.currentHealth.player = this.player.health;
       this.actions.player = [];
-      this.against.currentHealth = this.against.health;
+      this.currentHealth.against = this.against.health;
       this.actions.against = [];
     }
   },
