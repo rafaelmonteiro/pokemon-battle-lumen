@@ -1,5 +1,6 @@
 import character from './character'
 import actions from './actions'
+import vueHeader from '@/components/header'
 
 export default {
   name: 'battle',
@@ -69,11 +70,9 @@ export default {
       this.against = response.data.against;
       this.start();
 
-      // this.isAlive(0, true);
-    
     }, response => {
 
     });
   },
-  components: { character, actions }
+  components: { character, actions, vueHeader }
 }
