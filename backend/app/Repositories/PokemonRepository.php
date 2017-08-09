@@ -30,7 +30,7 @@ class PokemonRepository {
         $pokemonFound = reset($pokemons);
         $pokemon = new Pokemon($pokemonFound->name, $pokemonFound->type,
             $pokemonFound->avatar, $pokemonFound->health, $pokemonFound->agility,
-            $pokemonFound->attack, $pokemonFound->defense
+            $pokemonFound->attack, $pokemonFound->defense, $pokemonFound->attacks
         );
 
         return $pokemon;
@@ -43,7 +43,7 @@ class PokemonRepository {
 
         return new Pokemon($pokemonFound->name, $pokemonFound->type,
             $pokemonFound->avatar, $pokemonFound->health, $pokemonFound->agility,
-            $pokemonFound->attack, $pokemonFound->defense
+            $pokemonFound->attack, $pokemonFound->defense, $pokemonFound->attacks
         );
     }
 }

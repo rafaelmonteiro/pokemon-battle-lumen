@@ -46,17 +46,19 @@ class PokemonController extends Controller
             'player.attack' => 'required',
             'player.currentHealth' => 'required',
             'against.name' => 'required',
-            'against.attack' => 'required',
             'against.currentHealth' => 'required',
         ]);
 
         try {
             $player = $this->pokemonRepository->findByName($request->input('player.name'));
+            $player->setHealth($request->input('player.currentHealth'));
+
             $against = $this->pokemonRepository->findByName($request->input('against.name'));
+            $against->setHealth($request->input('against.currentHealth'));
         } catch (\App\Exceptions\PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
         }
-
-        return $player->hit($against);
+        
+        return $player->hit($request->input('player.attack'), $against);
     }
 }

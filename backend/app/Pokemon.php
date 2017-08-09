@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Exceptions\AttackNotFoundException;
+
 class Pokemon implements \JsonSerializable
 {
     private $name;
@@ -11,8 +13,9 @@ class Pokemon implements \JsonSerializable
     private $agility;
     private $attack;
     private $defense;
+    private $attacks;
 
-    public function __construct($name, $type, $avatar, $health, $agility, $attack, $defense)
+    public function __construct($name, $type, $avatar, $health, $agility, $attack, $defense, $attacks)
     {
         $this->name = $name;
         $this->type = $type;
@@ -21,16 +24,37 @@ class Pokemon implements \JsonSerializable
         $this->agility = $agility;
         $this->attack = $attack;
         $this->defense = $defense;
+        $this->attacks = $attacks;
     }
 
-    public function hit(Pokemon $opponent)
+    public function hit($attack, Pokemon $against)
     {
-        
+        $playerAttack = $this->getAttack($attack);
+        $againstAttack = $against->getRandomAttack();
     }
 
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function getAttack($name)
+    {
+        $attack = array_filter($this->getAttacks(), function($attack) use ($name) {
+            return $attack->name === $name;
+        });
+
+        if (empty($attack)) {
+            throw new AttackNotFoundException("'$name' does not exist");
+        }
+
+        return reset($attack);
+    }
+
+    public function getRandomAttack()
+    {
+        $attacks = $this->getAttacks();
+        return $attacks[array_rand($attacks)];
     }
 
     /**
@@ -74,6 +98,17 @@ class Pokemon implements \JsonSerializable
     }
 
     /**
+     * Get the value of Health
+     *
+     * @return this
+     */
+    public function setHealth($value)
+    {
+        $this->health = $value;
+        return $this;
+    }
+
+    /**
      * Get the value of Agility
      *
      * @return mixed
@@ -88,9 +123,9 @@ class Pokemon implements \JsonSerializable
      *
      * @return mixed
      */
-    public function getAttack()
+    public function getAttacks()
     {
-        return $this->attack;
+        return $this->attacks;
     }
 
     /**

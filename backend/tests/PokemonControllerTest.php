@@ -38,16 +38,30 @@ class PokemonControllerTest extends TestCase
     public function testHitInvalidAgainst()
     {
         $this->json('POST', '/hit', [
-            'player' => ['name' => 'Pikachu'],
-            'against' => ['name' => 'Agumon']
+            'player' => [
+                'name' => 'Pikachu',
+                'attack' => 'Quick Attack',
+                'currentHealth' => 100
+            ],
+            'against' => [
+                'name' => 'Agumon',
+                'currentHealth' => 100
+            ]
         ])->seeStatusCode(404);
     }
 
     public function testHitInvalidPlayer()
     {
         $this->json('POST', '/hit', [
-            'player' => ['name' => 'Agumon'],
-            'against' => ['name' => 'Pikachu']
+            'player' => [
+                'name' => 'Agumon',
+                'attack' => 'Mawashi geri',
+                'currentHealth' => 100
+            ],
+            'against' => [
+                'name' => 'Pikachu',
+                'currentHealth' => 42
+            ]
         ])->seeStatusCode(404);
     }
 
@@ -59,8 +73,15 @@ class PokemonControllerTest extends TestCase
     public function testHitValidPlayers()
     {
         $this->json('POST', '/hit', [
-            'player' => ['name' => 'Charmander'],
-            'against' => ['name' => 'Pikachu']
+            'player' => [
+                'name' => 'Charmander',
+                'attack' => 'Ember',
+                'currentHealth' => 100
+            ],
+            'against' => [
+                'name' => 'Pikachu',
+                'currentHealth' => 100
+            ],
         ])->seeStatusCode(200);
     }
 }
