@@ -43,7 +43,11 @@ class PokemonController extends Controller
     {
         $this->validate($request, [
             'player.name' => 'required',
-            'against.name' => 'required'
+            'player.attack' => 'required',
+            'player.currentHealth' => 'required',
+            'against.name' => 'required',
+            'against.attack' => 'required',
+            'against.currentHealth' => 'required',
         ]);
 
         try {

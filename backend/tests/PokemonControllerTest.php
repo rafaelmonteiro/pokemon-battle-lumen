@@ -35,7 +35,7 @@ class PokemonControllerTest extends TestCase
         $this->json('POST', '/select')->seeStatusCode(422);
     }
 
-    public function testHitInvalidPlayer()
+    public function testHitInvalidAgainst()
     {
         $this->json('POST', '/hit', [
             'player' => ['name' => 'Pikachu'],
@@ -43,7 +43,7 @@ class PokemonControllerTest extends TestCase
         ])->seeStatusCode(404);
     }
 
-    public function testHitInvalidAgainst()
+    public function testHitInvalidPlayer()
     {
         $this->json('POST', '/hit', [
             'player' => ['name' => 'Agumon'],

@@ -24,7 +24,7 @@ class PokemonRepository {
         });
 
         if (empty($pokemons)) {
-            throw new PokemonNotFoundException("The pokémon '$name' does not exits!");
+            throw new PokemonNotFoundException("The pokémon '$name' does not exist!");
         }
 
         $pokemonFound = reset($pokemons);
