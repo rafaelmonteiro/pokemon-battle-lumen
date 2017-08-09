@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Repositories\PokemonRepository;
+
 class Pokemon
 {
     const TYPE_NORMAL = 0;

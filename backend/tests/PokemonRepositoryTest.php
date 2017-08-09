@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Filesystem\Filesystem;
-use App\Repository\PokemonRepository;
+use App\Repositories\PokemonRepository;
 
 class PokemonRepositoryTest extends TestCase
 {

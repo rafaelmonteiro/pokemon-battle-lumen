@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pokemon;
 use Illuminate\Http\Request;
-use App\Repository\PokemonRepository;
+use App\Repositories\PokemonRepository;
 
 class PokemonController extends Controller
 {
@@ -27,8 +27,6 @@ class PokemonController extends Controller
     public function select(Request $request)
     {
         $pokemon = $this->pokemonRepository->findByName($request->input('name'));
-
-        $pokemons = $this->all();
 
         if (!empty($pokemon))
         {

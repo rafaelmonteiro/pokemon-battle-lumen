@@ -1,4 +1,4 @@
-<?php namespace App\Repository;
+<?php namespace App\Repositories;
 
 use Illuminate\Filesystem\Filesystem;
 
