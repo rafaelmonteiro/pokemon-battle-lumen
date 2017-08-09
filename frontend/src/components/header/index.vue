@@ -1,7 +1,9 @@
 <template>
 	<div class="page-header">
 		<h1>
-			<span class="hidden-xs">Pokémon Battle</span>
+			<router-link class="hidden-xs" :to="{ name: 'selection' }">
+				Pokémon Battle
+			</router-link>
 			<slot></slot>	
 		</h1>
 		<i v-on:click="help" class="fa fa-info-circle help" aria-hidden="true"></i>

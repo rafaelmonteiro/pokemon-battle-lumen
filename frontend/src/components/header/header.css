@@ -8,3 +8,9 @@
 	cursor: pointer;
 	font-size: 30px;
 }
+.page-header a{
+    color: black;
+}
+.page-header a:hover{
+	text-decoration: none;
+}

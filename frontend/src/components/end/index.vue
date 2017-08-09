@@ -12,7 +12,7 @@
 			<img :src="apiUrl + winner.avatar" :alt="winner.name" /> 
 			<p><b>{{winner.name}}</b> is the winner!!! <b>{{loser}}</b> had no chances and was destroyed!</p>
 			<p>
-				<router-link class="btn btn-primary btn-lg" :to="'selection'">
+				<router-link class="btn btn-primary btn-lg" :to="{ name: 'selection' }">
 					<i class="fa fa-circle-o-notch" aria-hidden="true"></i> Try again
 				</router-link>
 			</p>
