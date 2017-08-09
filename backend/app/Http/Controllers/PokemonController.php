@@ -26,18 +26,33 @@ class PokemonController extends Controller
 
     public function select(Request $request)
     {
-        $pokemon = $this->pokemonRepository->findByName($request->input('name'));
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
 
-        if (!empty($pokemon))
-        {
-            return ['player'=>$pokemon, 'against' => $this->pokemonRepository->getRandom()];
+        try {
+            $player = $this->pokemonRepository->findByName($request->input('name'));
+
+            return ['player' => $player, 'against' => $this->pokemonRepository->getRandom()];
+        } catch (\App\Exceptions\PokemonNotFoundException $e) {
+            return response()->json($e->getMessage(), 404);
         }
-        return ['errors'=>'Please select a valid Pokemon'];
     }
 
     public function hit(Request $request)
     {
-        $model = new Pokemon;
-        return $model->hit($request);
+        $this->validate($request, [
+            'player.name' => 'required',
+            'against.name' => 'required'
+        ]);
+
+        try {
+            $player = $this->pokemonRepository->findByName($request->input('player.name'));
+            $against = $this->pokemonRepository->findByName($request->input('against.name'));
+        } catch (\App\Exceptions\PokemonNotFoundException $e) {
+            return response()->json($e->getMessage(), 404);
+        }
+
+        return $player->hit($against);
     }
 }

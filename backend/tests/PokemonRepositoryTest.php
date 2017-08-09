@@ -26,9 +26,17 @@ class PokemonRepositoryTest extends TestCase
         $this->assertEquals($pokemons, $this->pokemonRepository->getAll());
     }
 
-    public function testFindByName()
+    public function testFindByNameExists()
     {
-        $this->assertEquals('Charmander', $this->pokemonRepository->findByName('Charmander')->name);
+        $this->assertEquals('Charmander', $this->pokemonRepository->findByName('Charmander')->getName());
+    }
+
+    /**
+     * @expectedException \App\Exceptions\PokemonNotFoundException
+     */
+    public function testFindByNameDoesNotExists()
+    {
+        $this->pokemonRepository->findByName('Agumon');
     }
 
     public function testGetRandom()
