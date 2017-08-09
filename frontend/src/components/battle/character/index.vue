@@ -14,7 +14,7 @@
 		</p>
 	</div>
 	<div class="container-image">
-		<img :src="apiUrl+player.avatar" />
+		<img :src="apiUrl+player.avatar" :alt="player.name" />
 	</div>
 	<div class="caption">
 		<ul title="Attacks" v-if="player.attacks" class="list-group">

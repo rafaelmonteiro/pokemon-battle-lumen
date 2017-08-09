@@ -1,3 +1,5 @@
+import vueHeader from '@/components/header'
+
 export default {
   name: 'selection',
   methods: {
@@ -18,5 +20,6 @@ export default {
     }, response => {
 
     });
-  }
+  },
+  components: { vueHeader }
 }

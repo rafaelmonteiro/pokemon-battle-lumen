@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="page-header">
-			<h1>Pokémon Battle <small>select your Pokémon</small></h1>
-		</div>
+		<vue-header>
+			<small>select your Pokémon</small>
+		</vue-header>
 	  	<div class="row">
 		  <div v-for="player in players" class="col-md-3">
 		    <div v-on:click="select(player)" class="thumbnail">
