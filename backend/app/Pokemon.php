@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exceptions\AttackNotFoundException;
+use App\Repositories\AttackRepository;
 
 class Pokemon implements \JsonSerializable
 {
@@ -14,6 +15,7 @@ class Pokemon implements \JsonSerializable
     private $attack;
     private $defense;
     private $attacks;
+    private $attackRepository;
 
     public function __construct($name, $type, $avatar, $health, $agility, $attack, $defense, $attacks)
     {
@@ -25,36 +27,20 @@ class Pokemon implements \JsonSerializable
         $this->attack = $attack;
         $this->defense = $defense;
         $this->attacks = $attacks;
+        $this->attackRepository = $attackRepository;
     }
 
     public function hit($attack, Pokemon $against)
     {
-        $playerAttack = $this->getAttack($attack);
+        $playerAttack = $this->attackRepository
         $againstAttack = $against->getRandomAttack();
+
+
     }
 
     public function jsonSerialize()
     {
         return get_object_vars($this);
-    }
-
-    public function getAttack($name)
-    {
-        $attack = array_filter($this->getAttacks(), function($attack) use ($name) {
-            return $attack->name === $name;
-        });
-
-        if (empty($attack)) {
-            throw new AttackNotFoundException("'$name' does not exist");
-        }
-
-        return reset($attack);
-    }
-
-    public function getRandomAttack()
-    {
-        $attacks = $this->getAttacks();
-        return $attacks[array_rand($attacks)];
     }
 
     /**
