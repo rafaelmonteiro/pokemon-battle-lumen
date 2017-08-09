@@ -11,6 +11,9 @@
 |
 */
 
+$app->get('/', function(){
+    return 'Pokemon API';
+});
 $app->get('/all', 'PokemonController@all');
 $app->options('/select', 'PokemonController@select');
 $app->post('/select', 'PokemonController@select');
