@@ -26,7 +26,7 @@ export default {
         }
       }
     },
-    isAlive(health, isPlayer){
+    isAlive(health, isPlayer){ 
       if (health <= 0) {
         this.$router.push({ name: 'end', params: { 
           player: this.player, 

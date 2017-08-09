@@ -9,13 +9,19 @@
 				<i v-if="!values.playerWins" class="fa fa-frown-o" aria-hidden="true"></i>
 				{{message}}
 			</h1>
-			<img :src="apiUrl + winner.avatar" :alt="winner.name" /> 
-			<p><b>{{winner.name}}</b> is the winner!!! <b>{{loser}}</b> had no chances and was destroyed!</p>
-			<p>
-				<router-link class="btn btn-primary btn-lg" :to="{ name: 'selection' }">
-					<i class="fa fa-circle-o-notch" aria-hidden="true"></i> Try again
-				</router-link>
-			</p>
+			<div class="row">
+				<div class="col-md-3">
+					<img class="pull-left" :src="apiUrl + winner.avatar" :alt="winner.name" /> 
+				</div>
+				<div class="col-md-9 padding-top">
+					<p><b>{{winner.name}}</b> is the winner!!! <b>{{loser}}</b> had no chances and was destroyed!</p>
+					<p>
+						<router-link class="btn btn-primary btn-lg" :to="{ name: 'selection' }">
+							<i class="fa fa-circle-o-notch" aria-hidden="true"></i> Try again
+						</router-link>
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>	
 </template>
