@@ -1,0 +1,10 @@
+.page-header{
+	position: relative;
+}
+.help{
+	position: absolute;
+	right: 7px;
+    top: 2px;
+	cursor: pointer;
+	font-size: 30px;
+}
