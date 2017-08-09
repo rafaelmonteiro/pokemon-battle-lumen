@@ -1,6 +1,8 @@
 <?php namespace App\Repositories;
 
 use Illuminate\Filesystem\Filesystem;
+use App\Exceptions\PokemonNotFoundException;
+use App\Pokemon;
 
 class PokemonRepository {
     private $filesystem;
@@ -21,12 +23,27 @@ class PokemonRepository {
             return $pokemon->name === $name;
         });
 
-        return reset($pokemons);
+        if (empty($pokemons)) {
+            throw new PokemonNotFoundException("The pokémon '$name' does not exits!");
+        }
+
+        $pokemonFound = reset($pokemons);
+        $pokemon = new Pokemon($pokemonFound->name, $pokemonFound->type,
+            $pokemonFound->avatar, $pokemonFound->health, $pokemonFound->agility,
+            $pokemonFound->attack, $pokemonFound->defense
+        );
+
+        return $pokemon;
     }
 
     public function getRandom()
     {
         $pokemons = $this->getAll();
-        return $pokemons[array_rand($pokemons)];
+        $pokemonFound = $pokemons[array_rand($pokemons)];
+
+        return new Pokemon($pokemonFound->name, $pokemonFound->type,
+            $pokemonFound->avatar, $pokemonFound->health, $pokemonFound->agility,
+            $pokemonFound->attack, $pokemonFound->defense
+        );
     }
 }
