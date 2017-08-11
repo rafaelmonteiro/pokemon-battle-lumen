@@ -55,10 +55,32 @@ class PokemonController extends Controller
 
             $against = $this->pokemonRepository->findByName($request->input('against.name'));
             $against->setHealth($request->input('against.currentHealth'));
+
+
         } catch (\App\Exceptions\PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
+        } catch (\App\Exceptions\AttackNotFoundException $e) {
+            return response()->json($e->getMessage(), 404);
         }
-        
-        return $player->hit($request->input('player.attack'), $against);
+
+        $againstDamage = $player->hit($request->input('player.attack'), $against);
+
+        return [
+            "player"=> [
+                "name" => $request->input('player.name'),
+                "currentHealth" => $request->input('player.currentHealth')-$cpuDamage,
+                "damage" => $playerDamage,
+                "desc" => $playerTypeModifier['desc'],
+                "desc_id" => $playerTypeModifier['desc_id'],
+            ],
+            "against"=>[
+                "name" => $request->input('against.name'),
+                "currentHealth" => $request->input('against.currentHealth')-$playerDamage,
+                "attack" => $cpuAttackInfo['name'],
+                "damage" => $cpuDamage,
+                "desc" => $cpuTypeModifier['desc'],
+                "desc_id" => $cpuTypeModifier['desc_id'],
+            ]
+        ];
     }
 }
