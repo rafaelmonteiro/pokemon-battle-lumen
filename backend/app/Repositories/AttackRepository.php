@@ -40,6 +40,10 @@ class AttackRepository {
     public function getRandom()
     {
         $attacks = $this->getAttacks();
-        return $attacks[array_rand($attacks)];
+        $randomAttack = $attacks[array_rand($attacks)];
+
+        return new Attack($randomAttack->name, $randomAttack->power,
+            $randomAttack->type, $randomAttack->accuracy
+        );
     }
 }

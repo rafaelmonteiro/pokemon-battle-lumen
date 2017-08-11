@@ -5,7 +5,7 @@ namespace App;
 use App\Exceptions\AttackNotFoundException;
 use App\Repositories\AttackRepository;
 
-abstract class Pokemon implements \JsonSerializable
+class Pokemon implements \JsonSerializable
 {
     private $name;
     private $type;
@@ -36,86 +36,13 @@ abstract class Pokemon implements \JsonSerializable
 
         $againstAttackRepository = new AttackRepository($against);
         $againstAttack = $againstAttackRepository->getRandom();
-    }
 
-    public function calculateWaterTypeModifier(Attack $playerAttack, Pokemon $against)
-    {
-        if ($playerAttack->getType() == AttackType::ELECTRIC || $playerAttack->getType() == AttackType::GRASS){
-            return new Damage(DamageType::DOUBLE_DAMAGE);
-        }
+        $typeModifierCalculator = new TypeModifierCalculator();
+        $playerTypeCalculator = $typeModifierCalculator->calculate($playerAttack, $against);
+        $againstTypeCalculator = $typeModifierCalculator->calculate($againstAttack, $this);
 
-        if ($playerAttack->getType() == AttackType::WATER || $playerAttack->getType() == AttackType::TYPE_FIRE) {
-            return new Damage(DamageType::HALF_DAMAGE);
-        }
-    }
 
-    public function calculateGrassTypeModifier(Attack $playerAttack, Pokemon $against)
-    {
-        if ($playerAttack->getType() == AttackType::FIRE) {
-            $descriptionId = self::DOUBLE_DAMAGE;
-            return new Damage(DamageType::DOUBLE_DAMAGE);
-        }
 
-        if ($playerAttack->getType() == AttackType::GRASS
-            || $playerAttack->getType() == AttackType::WATER
-            || $playerAttack->getType() == AttackType::ELECTRIC) {
-            return new Damage(DamageType::HALF_DAMAGE);
-        }
-    }
-
-    public function calculateFireTypeModifier(Attack $playerAttack, Pokemon $against)
-    {
-        if ($playerAttack->getType() == AttackType::WATER) {
-            return new Damage(DamageType::DOUBLE_DAMAGE);
-        }
-
-        if ($playerAttack->getType() == AttackType::FIRE] || $playerAttack->getType() == AttackType::GRASS) {
-            return new Damage(DamageType::HALF_DAMAGE);
-        }
-    }
-
-    public function calculateElectricTypeModifier(Attack $playerAttack, Pokemon $against)
-    {
-        if ($playerAttack->getType() == AttackType::ELECTRIC]) {
-            return new Damage(DamageType::HALF_DAMAGE);
-        }
-    }
-
-    private function calculateTypeModifier(Attack $playerAttack, Pokemon $against)
-    {
-        $accuracy = rand(1,100);
-        $damage = new Damage(DamageType::NORMAL);
-
-        switch ($against->getType()) {
-            case AttackType::WATER:
-                $damage = $this->calculateWaterTypeModifier($playerAttack, $against);
-                break;
-
-            case AttackType::GRASS:
-                $damage = $this->calculateGrassTypeModifier($playerAttack, $against);
-                break;
-
-            case AttackType::FIRE:
-                $damage = $this->calculateFireTypeModifier($playerAttack, $against);
-                break;
-
-            case AttackType::ELECTRIC:
-                $damage = $this->calculateElectricTypeModifier($playerAttack, $against);
-                break;
-        }
-
-        if ($accuracy >= 90){
-            $descriptionId *= self::DESCRIPTION_ID_CRITICAL;
-            $attackDescription .= self::MSG_CRITICAL;
-            $typeModifier *= 1.8;
-        }
-        else if ($accuracy <= 10){
-            $descriptionId = self::DESCRIPTION_ID_MISSED;
-            $attackDescription = self::MSG_MISSED;
-            $typeModifier = 0;
-        }
-
-        return ['desc'=>$attackDescription,'desc_id'=>$descriptionId,'type_modifier'=>$typeModifier];
     }
 
     public function jsonSerialize()

@@ -1,20 +1,20 @@
 <?php namespace App;
 
 class AttackType {
-    static const NORMAL = 0;
-	static const FIRE = 1;
-	static const WATER = 2;
-	static const GRASS = 3;
-	static const BUG = 4;
-	static const ELECTRIC = 5;
-	static const GROUND = 6;
-	static const ROCK = 7;
-	static const FLYING = 8;
-	static const PSYCHIC = 9;
-	static const GHOST = 10;
-	static const POISON = 11;
-	static const FIGHTING = 12;
-	static const ICE = 13;
-	static const DRAGON = 14;
-	static const FAIRY = 15;
+    const NORMAL = 0;
+	const FIRE = 1;
+	const WATER = 2;
+	const GRASS = 3;
+	const BUG = 4;
+	const ELECTRIC = 5;
+	const GROUND = 6;
+	const ROCK = 7;
+	const FLYING = 8;
+	const PSYCHIC = 9;
+	const GHOST = 10;
+	const POISON = 11;
+	const FIGHTING = 12;
+	const ICE = 13;
+	const DRAGON = 14;
+	const FAIRY = 15;
 }

@@ -1,9 +1,9 @@
 <?php namespace App;
 
-class Damage {
+class TypeModifier {
     private $id;
     private $description;
-    private $typeModifier;
+    private $multiplier;
     private $descriptions = [
         1 => '',
         2 => '(Missed!)',
@@ -14,9 +14,10 @@ class Damage {
         12 => 'Not implemented',
         15 => 'Not implemented',
     ];
-    private $typeModifiers = [
+    private $multipliers = [
         1 => 10, // Normal
         2 => 0, // Missed
+        3 => 1.8, // Critical
         4 => 20, // Double
         5 => 2.5, // Half
         6 => 0, // No damage
@@ -24,14 +25,31 @@ class Damage {
         15 => 0, // Critical half damage
     ];
 
-
     public function __construct($id)
     {
         $this->id = $id;
         $this->description = $this->descriptions[$id];
-        $this->typeModifier = $this->typeModifiers[$id];
+        $this->multiplier = $this->multipliers[$id];
     }
 
+    public function increaseMultiplier($multiplier)
+    {
+        $this->multiplier *= $multiplier;
+    }
+
+    public function defineCritical()
+    {
+        $this->id = 3;
+        $this->description = $this->descriptions[$this->id];
+        $this->multiplier = $this->multipliers[$this->id];
+    }
+
+    public function defineMissed()
+    {
+        $this->id = 2;
+        $this->description = $this->descriptions[$this->id];
+        $this->multiplier = $this->multipliers[$this->id];
+    }
 
     /**
      * Get the value of Id
@@ -58,9 +76,9 @@ class Damage {
      *
      * @return mixed
      */
-    public function getTypeModifier()
+    public function getMultiplier()
     {
-        return $this->typeModifier;
+        return $this->multiplier;
     }
 
 }
