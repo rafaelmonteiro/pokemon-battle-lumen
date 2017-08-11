@@ -16,7 +16,7 @@ class AddHeaders
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        $response->header('Access-Control-Allow-Origin','https://pokemon-battlevue.herokuapp.com');        
+        $response->header('Access-Control-Allow-Origin','*');        
         $response->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
         $response->header('Access-Control-Allow-Headers', "x-requested-with, Content-Type, origin");
         return $response;

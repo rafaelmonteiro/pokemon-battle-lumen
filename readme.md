@@ -1,21 +1,150 @@
-# Lumen PHP Framework
+# pokemon-battle-lumen
+A simple Pokémon battle API made with Lumen (PHP)
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## API structure
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+| Route        | Method           | Description  |
+| ------------- |:-------------:| -----:| 
+| /all      | GET | List all available characters | 
+| /select      | POST      |  The user selected character |
+| /hit | POST | The user selected attack |
 
-## Official Documentation
+### API data structure
+#### /all 
+##### Param Out
+```javascript
+{[
+    "name" : "Pikachu",
+    "type" : "electric",
+    "avatar" : "avatarurl.extension",
+    "attacks" : [
+        {
+            "name": "thunderbolt",
+            "power": 50,
+            "type" : "electric",
+            "accuracy": 70
+        },
+        {
+            "name" : "tackle",
+            "power": 30,
+            "type" : "normal",
+            "accuracy": 85
+        }
+    ],
+    "health" : 75,
+    "agility": 95,
+    "attack": 65,
+    "defense": 55
+]}
+```
+#### /select 
+##### Param In
+```javascript
+{
+    "name" : "Pikachu"
+}
+```
+##### Param Out
+```javascript
+{
+    "player" : {
+        "name" : "Pikachu",
+        "type" : "electric",
+        "avatar" : "avatarurl.extension",
+        "attacks" : [
+            {
+                "name": "thunderbolt",
+                "power": 50,
+                "type" : "electric",
+                "accuracy": 70
+            },
+            {
+                "name" : "tackle",
+                "power": 30,
+                "type" : "normal",
+                "accuracy": 85
+            }
+        ],
+        "health" : 75,
+        "agility": 95,
+        "attack": 65,
+        "defense": 55
+    },
+    "against" : {
+        "name" : "Charmander",
+        "type" : "fire",
+        "avatar" : "avatarurl.extension",
+        "attacks" : [
+            {
+                "name": "flame",
+                "power": 50,
+                "type" : "fire",
+                "accuracy": 85
+            }
+        ],
+        "health" : 75,
+        "agility": 95,
+        "attack": 55,
+        "defense": 55
+    }
+}
+```
+#### /hit 
+##### Param In
+```javascript
+{
+    "player" : {
+        "name" : "Pikachu",
+        "currentHealth" : 60,
+        "attack" : "tackle"
+    },
+    "against" : {
+        "name" : "Charmander",
+        "currentHealth" : 50
+    }
+}
+```
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+##### Param Out
+```javascript
+{
+    "player" : {
+        "name" : "Pikachu",
+        "currentHealth" : 53,
+        "damage" : 5,
+        "desc" : "",
+        "desc_id" : 1
+    },
+    "against" : {
+        "name" : "Charmander",
+        "currentHealth" : 45,
+        "attack" : "flame",
+        "damage" : 7,
+        "desc" : "Critical Hit",
+        "desc_id" : 3
+    }
+}
+```
 
-## Security Vulnerabilities
+##### Hit description IDs (desc_id)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+| Id | Description  |
+| --:|--------------|
+| 1  | Normal | 
+| 2  | Missed | 
+| 3  | Critical Hit | 
+| 4  | Super effective attack | 
+| 5  | Not very effective attack | 
+| 6  | Not effective attack | 
+| 12 | Super effective and critical attack | 
+| 15 | Not very effective but critical attack | 
 
-## License
+### References
+[PokeApi](http://pokeapi.co) and [Bulbapedia](https://bulbapedia.bulbagarden.net)
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+### Local Configuration
+
+```
+composer install
+php -S localhost:8000 -t public
+```
