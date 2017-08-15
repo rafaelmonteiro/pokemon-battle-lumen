@@ -4,9 +4,9 @@ class Damage {
     private $causedDamage;
     private $typeModifier;
 
-    public function __construct($causedDamage, TypeModifier $typeModifier)
+    public function __construct($damage, TypeModifier $typeModifier)
     {
-        $this->causedDamage = $causedDamage;
+        $this->damage = $damage;
         $this->typeModifier = $typeModifier;
     }
 
@@ -15,9 +15,9 @@ class Damage {
      *
      * @return mixed
      */
-    public function getCausedDamage()
+    public function getDamage()
     {
-        return $this->causedDamage;
+        return $this->damage;
     }
 
     /**
@@ -29,5 +29,4 @@ class Damage {
     {
         return $this->typeModifier;
     }
-
 }

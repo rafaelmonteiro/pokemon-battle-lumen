@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pokemon;
 use Illuminate\Http\Request;
 use App\Repositories\PokemonRepository;
+use App\Repositories\AttackRepository;
 
 class PokemonController extends Controller
 {
@@ -56,6 +57,11 @@ class PokemonController extends Controller
             $against = $this->pokemonRepository->findByName($request->input('against.name'));
             $against->setHealth($request->input('against.currentHealth'));
 
+            $againstAttackRepository = new AttackRepository($against);
+            $randomAgainstAttack = $againstAttackRepository->getRandom();
+
+            $playerAttackRepository = new AttackRepository($player);
+            $playerAttack = $playerAttackRepository->findByName($request->input('player.attack'));
 
         } catch (\App\Exceptions\PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
@@ -63,23 +69,24 @@ class PokemonController extends Controller
             return response()->json($e->getMessage(), 404);
         }
 
-        $againstDamage = $player->hit($request->input('player.attack'), $against);
+        $player->hit($playerAttack, $against);
+        $against->hit($randomAgainstAttack, $player);
 
         return [
             "player"=> [
-                "name" => $request->input('player.name'),
-                "currentHealth" => $request->input('player.currentHealth')-$cpuDamage,
-                "damage" => $playerDamage,
-                "desc" => $playerTypeModifier['desc'],
-                "desc_id" => $playerTypeModifier['desc_id'],
+                "name" => $player->getName(),
+                "currentHealth" => $player->getHealth(),
+                "damage" => $against->getReceivedDamage()->getDamage(),
+                "desc" => $against->getReceivedDamage()->getTypeModifier()->getDescription(),
+                "desc_id" => $against->getReceivedDamage()->getTypeModifier()->getId(),
             ],
             "against"=>[
-                "name" => $request->input('against.name'),
-                "currentHealth" => $request->input('against.currentHealth')-$playerDamage,
-                "attack" => $cpuAttackInfo['name'],
-                "damage" => $cpuDamage,
-                "desc" => $cpuTypeModifier['desc'],
-                "desc_id" => $cpuTypeModifier['desc_id'],
+                "name" => $against->getName(),
+                "currentHealth" => $against->getHealth(),
+                "attack" => $player->getReceivedAttack()->getName(),
+                "damage" => $player->getReceivedDamage()->getDamage(),
+                "desc" => $player->getReceivedDamage()->getTypeModifier()->getDescription(),
+                "desc_id" => $player->getReceivedDamage()->getTypeModifier()->getId(),
             ]
         ];
     }

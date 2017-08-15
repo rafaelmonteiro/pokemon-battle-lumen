@@ -29,7 +29,7 @@ class AttackRepositoryTest extends TestCase
     {
         $this->attackRepository->findByName('Mawashi geri');
     }
-    //
+    
     public function testGetRandom()
     {
         $this->assertNotNull($this->attackRepository->getRandom());

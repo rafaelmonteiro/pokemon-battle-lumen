@@ -16,6 +16,8 @@ class Pokemon implements \JsonSerializable
     private $defense;
     private $attacks;
     private $attackRepository;
+    private $receivedDamage;
+    private $receivedAttack;
 
     public function __construct($name, $type, $avatar, $health, $agility, $attack, $defense, $attacks)
     {
@@ -29,42 +31,36 @@ class Pokemon implements \JsonSerializable
         $this->attacks = $attacks;
     }
 
-    public function hit($attack, Pokemon $against)
+    public function hit(Attack $attack, Pokemon &$against)
     {
-        $playerAttackRepository = new AttackRepository($this);
-        $playerAttack = $playerAttackRepository->findByName($attack);
+        $this->receivedAttack = $attack;
 
-        $againstAttackRepository = new AttackRepository($against);
-        $againstAttack = $againstAttackRepository->getRandom();
-
-        $damageCalculator = new DamageCalculator();
-
-        $againstDamage = $damageCalculator->calculate($playerAttack, $against);
-        $playerDamage = $damageCalculator->calculate($againstAttack, $this);
-
-
-        return [
-            "player"=> [
-                "name" => $request->input('player.name'),
-                "currentHealth" => $request->input('player.currentHealth')-$cpuDamage,
-                "damage" => $playerDamage,
-                "desc" => $playerTypeModifier['desc'],
-                "desc_id" => $playerTypeModifier['desc_id'],
-            ],
-            "against"=>[
-                "name" => $request->input('against.name'),
-                "currentHealth" => $request->input('against.currentHealth')-$playerDamage,
-                "attack" => $cpuAttackInfo['name'],
-                "damage" => $cpuDamage,
-                "desc" => $cpuTypeModifier['desc'],
-                "desc_id" => $cpuTypeModifier['desc_id'],
-            ]
-        ];
+        $damageCalculator = new DamageCalculator($this->receivedAttack, $against);
+        $against->receivedDamage = $damageCalculator->calculate();
+        $against->health -= $against->receivedDamage->getDamage();
     }
 
     public function jsonSerialize()
     {
         return get_object_vars($this);
+    }
+
+    public function getReceivedAttack()
+    {
+        if (!isset($this->receivedAttack)) {
+            throw new Exception("Pokémon was not attacked yet");
+        }
+
+        return $this->receivedAttack;
+    }
+
+    public function getReceivedDamage()
+    {
+        if (!isset($this->receivedDamage)) {
+            throw new Exception("Pokémon was not attacked yet");
+        }
+
+        return $this->receivedDamage;
     }
 
     /**
@@ -129,13 +125,23 @@ class Pokemon implements \JsonSerializable
     }
 
     /**
-     * Get the value of Attack
+     * Get the value of Attacks
      *
      * @return mixed
      */
     public function getAttacks()
     {
         return $this->attacks;
+    }
+
+    /**
+     * Get the value of Attack
+     *
+     * @return mixed
+     */
+    public function getAttack()
+    {
+        return $this->attack;
     }
 
     /**

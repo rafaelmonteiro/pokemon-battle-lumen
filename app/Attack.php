@@ -7,7 +7,7 @@ class Attack {
     private $type;
     private $accuracy;
 
-    public function __construct($name, $power, $type, $accuracy, Pokemon $pokemon = null)
+    public function __construct($name, $power, $type, $accuracy, Pokemon $pokemon)
     {
         $this->pokemon = $pokemon;
         $this->name = $name;

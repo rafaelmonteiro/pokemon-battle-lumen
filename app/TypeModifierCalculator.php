@@ -1,6 +1,15 @@
 <?php namespace App;
 
 class TypeModifierCalculator {
+    private $playerAttack;
+    private $againstPokemon;
+
+    public function __construct(Attack $playerAttack, Pokemon $against)
+    {
+        $this->playerAttack = $playerAttack;
+        $this->againstPokemon = $against;
+    }
+
     private function calculateWaterTypeModifier(Attack $playerAttack, Pokemon $against)
     {
         if ($playerAttack->getType() == AttackType::ELECTRIC || $playerAttack->getType() == AttackType::GRASS){
@@ -44,26 +53,26 @@ class TypeModifierCalculator {
         }
     }
 
-    public function calculate(Attack $playerAttack, Pokemon $against)
+    public function calculate()
     {
         $accuracy = rand(1,100);
         $typeModifier = new TypeModifier(DamageType::NORMAL);
 
-        switch ($against->getType()) {
+        switch ($this->againstPokemon->getType()) {
             case AttackType::WATER:
-                $typeModifier = $this->calculateWaterTypeModifier($playerAttack, $against);
+                $typeModifier = $this->calculateWaterTypeModifier($this->playerAttack, $this->againstPokemon);
                 break;
 
             case AttackType::GRASS:
-                $typeModifier = $this->calculateGrassTypeModifier($playerAttack, $against);
+                $typeModifier = $this->calculateGrassTypeModifier($this->playerAttack, $this->againstPokemon);
                 break;
 
             case AttackType::FIRE:
-                $typeModifier = $this->calculateFireTypeModifier($playerAttack, $against);
+                $typeModifier = $this->calculateFireTypeModifier($this->playerAttack, $this->againstPokemon);
                 break;
 
             case AttackType::ELECTRIC:
-                $typeModifier = $this->calculateElectricTypeModifier($playerAttack, $against);
+                $typeModifier = $this->calculateElectricTypeModifier($this->playerAttack, $this->againstPokemon);
                 break;
         }
 

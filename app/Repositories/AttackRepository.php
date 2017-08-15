@@ -25,13 +25,15 @@ class AttackRepository {
             return $attack->name === $name;
         });
 
+        // dd($this->pokemon, $name, $attack);
+
         if (empty($attack)) {
             throw new AttackNotFoundException("'$name' does not exist");
         }
 
         $attackFound = reset($attack);
         return new Attack($attackFound->name, $attackFound->power,
-            $attackFound->type, $attackFound->accuracy
+            $attackFound->type, $attackFound->accuracy, $this->pokemon
         );
 
         return reset($attack);
@@ -43,7 +45,7 @@ class AttackRepository {
         $randomAttack = $attacks[array_rand($attacks)];
 
         return new Attack($randomAttack->name, $randomAttack->power,
-            $randomAttack->type, $randomAttack->accuracy
+            $randomAttack->type, $randomAttack->accuracy, $this->pokemon
         );
     }
 }

@@ -5,7 +5,7 @@ class TypeModifier {
     private $description;
     private $multiplier;
     private $descriptions = [
-        1 => '',
+        1 => 'NORMAL',
         2 => '(Missed!)',
         3 => '(CRITICAL Hit!)',
         4 => "It's super effective!",
@@ -30,11 +30,6 @@ class TypeModifier {
         $this->id = $id;
         $this->description = $this->descriptions[$id];
         $this->multiplier = $this->multipliers[$id];
-    }
-
-    public function increaseMultiplier($multiplier)
-    {
-        $this->multiplier *= $multiplier;
     }
 
     public function defineCritical()
