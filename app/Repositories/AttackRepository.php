@@ -25,8 +25,6 @@ class AttackRepository {
             return $attack->name === $name;
         });
 
-        // dd($this->pokemon, $name, $attack);
-
         if (empty($attack)) {
             throw new AttackNotFoundException("'$name' does not exist");
         }

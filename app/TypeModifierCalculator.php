@@ -10,7 +10,7 @@ class TypeModifierCalculator {
         $this->againstPokemon = $against;
     }
 
-    private function calculateWaterTypeModifier(Attack $playerAttack, Pokemon $against)
+    private function calculateWaterTypeModifier(Attack $playerAttack)
     {
         if ($playerAttack->getType() == AttackType::ELECTRIC || $playerAttack->getType() == AttackType::GRASS){
             return new TypeModifier(DamageType::DOUBLE_DAMAGE);
@@ -21,10 +21,9 @@ class TypeModifierCalculator {
         }
     }
 
-    private function calculateGrassTypeModifier(Attack $playerAttack, Pokemon $against)
+    private function calculateGrassTypeModifier(Attack $playerAttack)
     {
         if ($playerAttack->getType() == AttackType::FIRE) {
-            $descriptionId = self::DOUBLE_DAMAGE;
             return new TypeModifier(DamageType::DOUBLE_DAMAGE);
         }
 
@@ -35,7 +34,7 @@ class TypeModifierCalculator {
         }
     }
 
-    private function calculateFireTypeModifier(Attack $playerAttack, Pokemon $against)
+    private function calculateFireTypeModifier(Attack $playerAttack)
     {
         if ($playerAttack->getType() == AttackType::WATER) {
             return new TypeModifier(DamageType::DOUBLE_DAMAGE);
@@ -46,7 +45,7 @@ class TypeModifierCalculator {
         }
     }
 
-    private function calculateElectricTypeModifier(Attack $playerAttack, Pokemon $against)
+    private function calculateElectricTypeModifier(Attack $playerAttack)
     {
         if ($playerAttack->getType() == AttackType::ELECTRIC) {
             return new TypeModifier(DamageType::HALF_DAMAGE);
@@ -60,19 +59,19 @@ class TypeModifierCalculator {
 
         switch ($this->againstPokemon->getType()) {
             case AttackType::WATER:
-                $typeModifier = $this->calculateWaterTypeModifier($this->playerAttack, $this->againstPokemon);
+                $typeModifier = $this->calculateWaterTypeModifier($this->playerAttack);
                 break;
 
             case AttackType::GRASS:
-                $typeModifier = $this->calculateGrassTypeModifier($this->playerAttack, $this->againstPokemon);
+                $typeModifier = $this->calculateGrassTypeModifier($this->playerAttack);
                 break;
 
             case AttackType::FIRE:
-                $typeModifier = $this->calculateFireTypeModifier($this->playerAttack, $this->againstPokemon);
+                $typeModifier = $this->calculateFireTypeModifier($this->playerAttack);
                 break;
 
             case AttackType::ELECTRIC:
-                $typeModifier = $this->calculateElectricTypeModifier($this->playerAttack, $this->againstPokemon);
+                $typeModifier = $this->calculateElectricTypeModifier($this->playerAttack);
                 break;
         }
 

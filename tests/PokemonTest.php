@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Filesystem\Filesystem;
-use App\Repositories\PokemonRepository;
+use App\Pokemon;
 
 class PokemonTest extends TestCase
 {
-    
+
 }
