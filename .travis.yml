@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 7.1
+
+addons:
+  code_climate:
+    repo_token: $code_climate_token
+
+install:
+  - composer install
+
+after_success:
+  - vendor/bin/test-reporter
