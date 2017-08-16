@@ -1,4 +1,7 @@
 # pokemon-battle-lumen
+
+[![Code Climate](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/badges/gpa.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen) [![Test Coverage](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/badges/coverage.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/coverage)
+
 A simple Pokémon battle API made with Lumen (PHP)
 
 ## API structure
