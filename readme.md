@@ -1,6 +1,9 @@
 # pokemon-battle-lumen
 
-[![Code Climate](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/badges/gpa.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen) [![Test Coverage](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/badges/coverage.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/coverage)
+[![Build Status](https://travis-ci.org/rafaelmonteiro/pokemon-battle-lumen.svg?branch=master)](https://travis-ci.org/rafaelmonteiro/pokemon-battle-lumen)
+[![Code Climate](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen)
+[![Dependency Status](https://www.versioneye.com/php/rafaelmonteiro:pokemon-battle-lumen/dev-master/badge.svg)](https://www.versioneye.com/php/rafaelmonteiro:pokemon-battle-lumen/dev-master)
+[![Test Coverage](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/badges/coverage.svg)](https://codeclimate.com/github/rafaelmonteiro/pokemon-battle-lumen/coverage)
 
 A simple Pokémon battle API made with Lumen (PHP)
 
