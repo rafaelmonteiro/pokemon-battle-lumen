@@ -4,6 +4,11 @@
 
 A simple Pokémon battle API made with Lumen (PHP)
 
+## Live demo
+[Pokemon Battle using VueJS and PHP Lumen](https://pokemon-battle-vue.herokuapp.com/)
+* Complete list of availables frontend projects [click here](https://vanderleisilva.github.io/pokemon-battle/frontend-api.json);
+* Complete list of availables backend projects [click here](https://vanderleisilva.github.io/pokemon-battle/backend-api.json);
+
 ## API structure
 
 | Route        | Method           | Description  |
