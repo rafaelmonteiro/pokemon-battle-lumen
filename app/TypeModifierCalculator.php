@@ -6,8 +6,8 @@ class TypeModifierCalculator {
 
     private $multipliers = [
         [1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,0],
-        [1,2,0.5,1,0.5,1,1,1,2,1,1,1,2,1,0.5,1,1,1],
         [1,0.5,0.5,1,2,2,1,1,1,1,1,2,0.5,1,0.5,1,2,1],
+        [1,2,0.5,1,0.5,1,1,1,2,1,1,1,2,1,0.5,1,1,1],
         [1,1,2,0.5,0.5,1,1,1,0,2,1,1,1,1,0.5,1,1,1],
         [1,0.5,2,1,0.5,1,1,0.5,2,0.5,1,0.5,2,1,0.5,1,0.5,1],
         [1,0.5,0.5,1,2,0.5,1,1,2,2,1,1,1,1,2,1,0.5,1],
@@ -31,6 +31,22 @@ class TypeModifierCalculator {
         $this->againstPokemon = $against;
     }
 
+    public function calculate()
+    {
+        $accuracy = rand(1, 100);
+        $typeModifier = $this->calculateTypeModifier($this->playerAttack);
+
+        if ($accuracy >= 90) {
+            $typeModifier->defineCritical();
+        }
+
+        if ($accuracy <= 10) {
+            $typeModifier->defineMissed();
+        }
+
+        return $typeModifier;
+    }
+
     public function calculateTypeModifier(Attack $playerAttack)
     {
         $defense = AttackType::getValue($this->againstPokemon->getType());
@@ -50,22 +66,5 @@ class TypeModifierCalculator {
 
         return new TypeModifier(DamageType::NO_DAMAGE);
 
-    }
-
-
-    public function calculate()
-    {
-        $accuracy = rand(1,100);
-        $typeModifier = $this->calculateTypeModifier($this->playerAttack);
-
-        if ($accuracy >= 90){
-            $typeModifier->defineCritical();
-        }
-
-        if ($accuracy <= 10){
-            $typeModifier->defineMissed();
-        }
-
-        return $typeModifier;
     }
 }
