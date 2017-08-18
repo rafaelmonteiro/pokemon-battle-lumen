@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Pokemon;
-use Illuminate\Http\Request;
-use App\Repositories\PokemonRepository;
+use App\Exceptions\AttackNotFoundException;
+use App\Exceptions\PokemonNotFoundException;
 use App\Repositories\AttackRepository;
+use App\Repositories\PokemonRepository;
+use Illuminate\Http\Request;
 
 class PokemonController extends Controller
 {
@@ -35,7 +36,7 @@ class PokemonController extends Controller
             $player = $this->pokemonRepository->findByName($request->input('name'));
 
             return ['player' => $player, 'against' => $this->pokemonRepository->getRandom()];
-        } catch (\App\Exceptions\PokemonNotFoundException $e) {
+        } catch (PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
         }
     }
@@ -63,9 +64,9 @@ class PokemonController extends Controller
             $playerAttackRepository = new AttackRepository($player);
             $playerAttack = $playerAttackRepository->findByName($request->input('player.attack'));
 
-        } catch (\App\Exceptions\PokemonNotFoundException $e) {
+        } catch (PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
-        } catch (\App\Exceptions\AttackNotFoundException $e) {
+        } catch (AttackNotFoundException $e) {
             return response()->json($e->getMessage(), 404);
         }
 

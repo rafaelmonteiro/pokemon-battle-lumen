@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\Exceptions\AttackNotFoundException;
-use App\Repositories\AttackRepository;
-
 class Pokemon implements \JsonSerializable
 {
     private $name;
@@ -33,9 +30,9 @@ class Pokemon implements \JsonSerializable
 
     public function hit(Attack $attack, Pokemon &$against)
     {
-        $this->receivedAttack = $attack;
+        $against->receivedAttack = $attack;
 
-        $damageCalculator = new DamageCalculator($this->receivedAttack, $against);
+        $damageCalculator = new DamageCalculator($against->receivedAttack, $against);
         $against->receivedDamage = $damageCalculator->calculate();
         $against->health -= $against->receivedDamage->getDamage();
     }
