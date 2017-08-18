@@ -12,7 +12,6 @@ class Pokemon implements \JsonSerializable
     private $attack;
     private $defense;
     private $attacks;
-    private $attackRepository;
     private $receivedDamage;
     private $receivedAttack;
 

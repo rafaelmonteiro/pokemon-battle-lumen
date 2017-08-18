@@ -1,7 +1,7 @@
 <?php namespace App;
 
 class Damage {
-    private $causedDamage;
+    private $damage;
     private $typeModifier;
 
     public function __construct($damage, TypeModifier $typeModifier)

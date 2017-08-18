@@ -35,20 +35,21 @@ class TypeModifierCalculator {
     {
         $defense = AttackType::getValue($this->againstPokemon->getType());
         $attack = AttackType::getValue($playerAttack->getType());
-
-        $typeModifier = new TypeModifier(DamageType::NORMAL);
         $multiplier = $this->multipliers[$attack][$defense];
 
         if ($multiplier > 0) {
+            if ($multiplier == 1)
+                return new TypeModifier(DamageType::NORMAL);
+
             if ($multiplier > 1)
-                $typeModifier = new TypeModifier(DamageType::DOUBLE_DAMAGE);
-            else if ($multiplier < 1)
-                $typeModifier = new TypeModifier(DamageType::HALF_DAMAGE);
-        } else {
-            $typeModifier = new TypeModifier(DamageType::NO_DAMAGE);
+                return new TypeModifier(DamageType::DOUBLE_DAMAGE);
+
+            if ($multiplier < 1)
+                return new TypeModifier(DamageType::HALF_DAMAGE);
         }
 
-        return $typeModifier;
+        return new TypeModifier(DamageType::NO_DAMAGE);
+
     }
 
 
@@ -60,7 +61,8 @@ class TypeModifierCalculator {
         if ($accuracy >= 90){
             $typeModifier->defineCritical();
         }
-        else if ($accuracy <= 10){
+
+        if ($accuracy <= 10){
             $typeModifier->defineMissed();
         }
 
