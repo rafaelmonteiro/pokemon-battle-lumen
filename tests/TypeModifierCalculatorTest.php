@@ -14,20 +14,45 @@ class TypeModifierCalculatorTest extends TestCase
         $this->pokemonRepository = new PokemonRepository();
     }
 
-    public function testElectricAttackAgainstWaterPokemon()
+    public function testDoubleDamagePokemon()
     {
         $player = $this->pokemonRepository->findByName('Pikachu');
-        $player->setHealth(100);
-
         $against = $this->pokemonRepository->findByName('Squirtle');
-        $against->setHealth(100);
 
         $attackRepository = new AttackRepository($player);
         $attack = $attackRepository->findByName('Thunderbolt');
 
         $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
         $typeModifier = $typeModifierCalculator->calculate();
-        
+
         $this->assertEquals(DamageType::DOUBLE_DAMAGE, $typeModifier->getId());
+    }
+
+    public function testHalfDamagePokemon()
+    {
+        $player = $this->pokemonRepository->findByName('Pikachu');
+        $against = $this->pokemonRepository->findByName('Pikachu');
+
+        $attackRepository = new AttackRepository($player);
+        $attack = $attackRepository->findByName('Thunderbolt');
+
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
+        $typeModifier = $typeModifierCalculator->calculate();
+
+        $this->assertEquals(DamageType::HALF_DAMAGE, $typeModifier->getId());
+    }
+
+    public function testNormalDamagePokemon()
+    {
+        $player = $this->pokemonRepository->findByName('Pikachu');
+        $against = $this->pokemonRepository->findByName('Charmander');
+
+        $attackRepository = new AttackRepository($player);
+        $attack = $attackRepository->findByName('Thunderbolt');
+
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
+        $typeModifier = $typeModifierCalculator->calculate();
+
+        $this->assertEquals(DamageType::NORMAL, $typeModifier->getId());
     }
 }
