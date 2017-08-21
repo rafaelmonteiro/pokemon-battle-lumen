@@ -1,6 +1,7 @@
 <?php namespace App;
 
-class DamageType {
+class DamageType
+{
     const NORMAL = 1;
     const MISSED = 2;
     const CRITICAL = 3;
@@ -9,5 +10,4 @@ class DamageType {
     const NO_DAMAGE = 6;
     const CRITICAL_2XDAMAGE = 12;
     const CRITICAL_HALF_DAMAGE = 15;
-
 }

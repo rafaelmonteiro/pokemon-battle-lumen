@@ -1,28 +1,35 @@
-<?php namespace App;
+<?php
 
-class TypeModifier {
+namespace App;
+
+use App\DamageType;
+
+class TypeModifier
+{
     private $id;
     private $description;
     private $multiplier;
+
     private $descriptions = [
-        1 => 'NORMAL',
-        2 => '(Missed!)',
-        3 => '(CRITICAL Hit!)',
-        4 => "It's super effective!",
-        5 => "It's not very effective... ",
-        6 => "It's not effective ",
-        12 => 'Not implemented',
-        15 => 'Not implemented',
+        DamageType::NORMAL                  => 'NORMAL',
+        DamageType::MISSED                  => '(Missed!)',
+        DamageType::CRITICAL                => '(CRITICAL Hit!)',
+        DamageType::DOUBLE_DAMAGE           => "It's super effective!",
+        DamageType::HALF_DAMAGE             => "It's not very effective... ",
+        DamageType::NO_DAMAGE               => "It's not effective ",
+        DamageType::CRITICAL_2XDAMAGE       => 'Not implemented',
+        DamageType::CRITICAL_HALF_DAMAGE    => 'Not implemented'
     ];
+
     private $multipliers = [
-        1 => 10, // Normal
-        2 => 0, // Missed
-        3 => 1.8, // Critical
-        4 => 20, // Double
-        5 => 2.5, // Half
-        6 => 0, // No damage
-        12 => 0, // Critical double
-        15 => 0, // Critical half damage
+        DamageType::NORMAL                  => 10,
+        DamageType::MISSED                  => 0,
+        DamageType::CRITICAL                => 1.8,
+        DamageType::DOUBLE_DAMAGE           => 20,
+        DamageType:: HALF_DAMAGE            => 2.5,
+        DamageType::NO_DAMAGE               => 0,
+        DamageType::CRITICAL_2XDAMAGE       => 0,
+        DamageType::CRITICAL_HALF_DAMAGE    => 0
     ];
 
     public function __construct($id)
@@ -34,16 +41,16 @@ class TypeModifier {
 
     public function defineCritical()
     {
-        $this->id = 3;
-        $this->description = $this->descriptions[$this->id];
-        $this->multiplier = $this->multipliers[$this->id];
+        $this->id = DamageType::CRITICAL;
+        $this->description = $this->descriptions[DamageType::CRITICAL];
+        $this->multiplier = $this->multipliers[DamageType::CRITICAL];
     }
 
     public function defineMissed()
     {
-        $this->id = 2;
-        $this->description = $this->descriptions[$this->id];
-        $this->multiplier = $this->multipliers[$this->id];
+        $this->id = DamageType::MISSED;
+        $this->description = $this->descriptions[DamageType::MISSED];
+        $this->multiplier = $this->multipliers[DamageType::MISSED];
     }
 
     /**
@@ -75,5 +82,4 @@ class TypeModifier {
     {
         return $this->multiplier;
     }
-
 }
