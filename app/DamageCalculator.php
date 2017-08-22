@@ -1,5 +1,10 @@
 <?php namespace App;
 
+use App\Damage\CriticalModifier;
+use App\Damage\DamageBase;
+use App\Damage\RandomModifier;
+use App\Damage\TypeModifier;
+
 class DamageCalculator {
     private $playerAttack;
     private $againstPokemon;
@@ -14,13 +19,25 @@ class DamageCalculator {
     {
         $playerPokemon = $this->playerAttack->getPokemon();
 
+        $causedDamage = new DamageBase(15, $this->playerAttack->getPower(), $playerPokemon->getAttack(), $this->againstPokemon->getDefense());
+
+        $causedDamage = new TypeModifier($causedDamage);
+        $defenseType = AttackType::getValue($this->againstPokemon->getType());
+        $attackType = AttackType::getValue($this->playerAttack->getType());
+        $causedDamage->setTypes($attackType, $defenseType);
+
+        $causedDamage = new CriticalModifier($causedDamage);
+        $causedDamage->setBaseSpeed($playerPokemon->getAgility());
+
+        $causedDamage = new RandomModifier($causedDamage);
+
+        /*
+         * FIXME: Using old TypeModifier... Decouple in-battle accuracy logic and damage messages to remove this class!
+         */
         $typeModifierCalculator = new TypeModifierCalculator($this->playerAttack, $this->againstPokemon);
         $playerTypeModifier = $typeModifierCalculator->calculate();
 
-        $strength = 10 * $playerPokemon->getAttack() * $this->playerAttack->getPower();
-        $causedDamage = ceil((((((($strength / $this->againstPokemon->getDefense()) / 50) + 2) * 1) * $playerTypeModifier->getMultiplier() / 10) * rand(217, 255)) / 255);
-
-        return new Damage($causedDamage, $playerTypeModifier);
+        return new Damage($causedDamage->calculate(), $playerTypeModifier);
     }
 
     /**
