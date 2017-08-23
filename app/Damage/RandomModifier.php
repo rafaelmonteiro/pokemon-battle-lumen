@@ -9,7 +9,6 @@ class RandomModifier extends Modifier
         $random = mt_rand(217, 255);
         $multiplier = $random / 255;
 
-        var_dump($multiplier);
         return $this->damage->calculate() * $multiplier;
     }
 }
