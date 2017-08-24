@@ -9,6 +9,7 @@ addons:
 
 install:
   - composer install
+  - vendor/bin/security-checker security:check
 
 after_success:
   - vendor/bin/test-reporter
