@@ -14,8 +14,8 @@ class DamageCalculator {
     {
         $playerPokemon = $this->playerAttack->getPokemon();
 
-        $typeModifierCalculator = new TypeModifierCalculator($this->playerAttack, $this->againstPokemon);
-        $playerTypeModifier = $typeModifierCalculator->calculate();
+        $typeModifierCalc = new TypeModifierCalculator($this->playerAttack, $this->againstPokemon);
+        $playerTypeModifier = $typeModifierCalc->calculate();
 
         $strength = 10 * $playerPokemon->getAttack() * $this->playerAttack->getPower();
         $causedDamage = ceil((((((($strength / $this->againstPokemon->getDefense()) / 50) + 2) * 1) * $playerTypeModifier->getMultiplier() / 10) * rand(217, 255)) / 255);

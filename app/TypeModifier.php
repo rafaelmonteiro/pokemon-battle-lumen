@@ -26,7 +26,7 @@ class TypeModifier
         DamageType::MISSED                  => 0,
         DamageType::CRITICAL                => 1.8,
         DamageType::DOUBLE_DAMAGE           => 20,
-        DamageType:: HALF_DAMAGE            => 2.5,
+        DamageType::HALF_DAMAGE             => 2.5,
         DamageType::NO_DAMAGE               => 0,
         DamageType::CRITICAL_2XDAMAGE       => 0,
         DamageType::CRITICAL_HALF_DAMAGE    => 0

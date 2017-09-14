@@ -38,4 +38,28 @@ class PokemonRepositoryTest extends TestCase
     {
         $this->assertNotNull($this->pokemonRepository->getRandom());
     }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testExceptionIfNotReceivedDamage()
+    {
+        $this->pokemonRepository->findByName('Charmander')->getReceivedDamage();
+    }    
+
+    /**
+     * @expectedException Exception
+     */
+    public function testExceptionIfNotReceivedAttack()
+    {
+        $this->pokemonRepository->findByName('Charmander')->getReceivedAttack();
+    }    
+
+    public function testAvatarExists()
+    {
+        $this->assertFileExists('public'.$this->pokemonRepository->findByName('Charmander')->getAvatar());
+        $this->assertFileExists('public'.$this->pokemonRepository->findByName('Squirtle')->getAvatar());
+        $this->assertFileExists('public'.$this->pokemonRepository->findByName('Bulbasaur')->getAvatar());
+        $this->assertFileExists('public'.$this->pokemonRepository->findByName('Pikachu')->getAvatar());
+    }
 }

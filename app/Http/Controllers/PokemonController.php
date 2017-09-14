@@ -11,11 +11,7 @@ use Illuminate\Http\Request;
 class PokemonController extends Controller
 {
     private $pokemonRepository;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct(PokemonRepository $pokemonRepository)
     {
         $this->pokemonRepository = $pokemonRepository;
@@ -58,11 +54,11 @@ class PokemonController extends Controller
             $against = $this->pokemonRepository->findByName($request->input('against.name'));
             $against->setHealth($request->input('against.currentHealth'));
 
-            $againstAttackRepository = new AttackRepository($against);
-            $randomAgainstAttack = $againstAttackRepository->getRandom();
+            $againstAtkRepository = new AttackRepository($against);
+            $randomAgainstAttack = $againstAtkRepository->getRandom();
 
-            $playerAttackRepository = new AttackRepository($player);
-            $playerAttack = $playerAttackRepository->findByName($request->input('player.attack'));
+            $playerAtkRepository = new AttackRepository($player);
+            $playerAttack = $playerAtkRepository->findByName($request->input('player.attack'));
 
         } catch (PokemonNotFoundException $e) {
             return response()->json($e->getMessage(), 404);

@@ -44,7 +44,7 @@ class Pokemon implements \JsonSerializable
     public function getReceivedAttack()
     {
         if (!isset($this->receivedAttack)) {
-            throw new Exception("Pokémon was not attacked yet");
+            throw new \Exception("Pokémon was not attacked yet");
         }
 
         return $this->receivedAttack;
@@ -53,7 +53,7 @@ class Pokemon implements \JsonSerializable
     public function getReceivedDamage()
     {
         if (!isset($this->receivedDamage)) {
-            throw new Exception("Pokémon was not attacked yet");
+            throw new \Exception("Pokémon was not attacked yet");
         }
 
         return $this->receivedDamage;
@@ -100,7 +100,7 @@ class Pokemon implements \JsonSerializable
     }
 
     /**
-     * Get the value of Health
+     * Set the value of Health
      *
      * @return this
      */
