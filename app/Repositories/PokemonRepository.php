@@ -1,4 +1,5 @@
-<?php namespace App\Repositories;
+<?php 
+namespace App\Repositories;
 
 use Illuminate\Filesystem\Filesystem;
 use App\Exceptions\PokemonNotFoundException;

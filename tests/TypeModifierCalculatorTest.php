@@ -9,7 +9,7 @@ class TypeModifierCalculatorTest extends TestCase
 {
     private $pokemonRepository;
 
-    public function __construct()
+    public function setUp()
     {
         $this->pokemonRepository = new PokemonRepository();
     }

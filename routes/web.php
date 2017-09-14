@@ -15,7 +15,11 @@ $app->get('/', function(){
     return 'Pokemon API';
 });
 $app->get('/all', 'PokemonController@all');
-$app->options('/select', 'PokemonController@select');
+$app->options('/select', function(){
+    return '';
+});
 $app->post('/select', 'PokemonController@select');
-$app->options('/hit', 'PokemonController@hit');
+$app->options('/hit', function(){
+    return '';
+});
 $app->post('/hit', 'PokemonController@hit');

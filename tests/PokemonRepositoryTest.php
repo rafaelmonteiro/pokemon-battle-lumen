@@ -8,17 +8,12 @@ class PokemonRepositoryTest extends TestCase
     private $filesystem;
     private $pokemonRepository;
 
-    public function __construct()
+    public function setUp()
     {
         $this->filesystem = new Filesystem();
         $this->pokemonRepository = new PokemonRepository();
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testGetAll()
     {
         $pokemons = json_decode($this->filesystem->get(storage_path('app/pokemons.json')));

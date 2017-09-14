@@ -10,7 +10,7 @@ class AttackRepositoryTest extends TestCase
     private $attackRepository;
     private $pokemonRepository;
 
-    public function __construct()
+    public function setUp()
     {
         $this->filesystem = new Filesystem();
         $this->pokemonRepository = new PokemonRepository();
