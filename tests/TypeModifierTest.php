@@ -33,7 +33,7 @@ class TypeModifierTest extends TestCase
 
         $this->assertEquals($damageType, $typeModifier->getId());
         $this->assertEquals('(CRITICAL Hit!)', $typeModifier->getDescription());
-        $this->assertEquals(1.8, $typeModifier->getMultiplier());
+        $this->assertEquals(17, $typeModifier->getMultiplier());
     }
 
     public function testDoubleModifier()
@@ -72,8 +72,8 @@ class TypeModifierTest extends TestCase
         $typeModifier = new TypeModifier($damageType);
 
         $this->assertEquals($damageType, $typeModifier->getId());
-        $this->assertEquals('Not implemented', $typeModifier->getDescription());
-        $this->assertEquals(0, $typeModifier->getMultiplier());
+        $this->assertEquals("It's super effective! (Critical)", $typeModifier->getDescription());
+        $this->assertEquals(27, $typeModifier->getMultiplier());
     }
 
     public function testCriticalHalfDamageModifier()
@@ -82,8 +82,8 @@ class TypeModifierTest extends TestCase
         $typeModifier = new TypeModifier($damageType);
 
         $this->assertEquals($damageType, $typeModifier->getId());
-        $this->assertEquals('Not implemented', $typeModifier->getDescription());
-        $this->assertEquals(0, $typeModifier->getMultiplier());
+        $this->assertEquals("It's not very effective... (Critical)", $typeModifier->getDescription());
+        $this->assertEquals(5, $typeModifier->getMultiplier());
     }
 
     public function testDefineCritical()
@@ -93,7 +93,7 @@ class TypeModifierTest extends TestCase
 
         $this->assertEquals(DamageType::CRITICAL, $typeModifier->getId());
         $this->assertEquals('(CRITICAL Hit!)', $typeModifier->getDescription());
-        $this->assertEquals(1.8, $typeModifier->getMultiplier());
+        $this->assertEquals(17, $typeModifier->getMultiplier());
     }
 
     public function testDefineMissed()

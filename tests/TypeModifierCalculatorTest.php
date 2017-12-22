@@ -14,13 +14,7 @@ class TypeModifierCalculatorTest extends TestCase
         $this->pokemonRepository = new PokemonRepository();
     }
 
-    public function testTrue()
-    {
-        $this->assertTrue(true);
-    }
-
-    /*
-    public function testDoubleDamagePokemon()
+    public function testDoubleDamageAttack()
     {
         $player = $this->pokemonRepository->findByName('Pikachu');
         $against = $this->pokemonRepository->findByName('Squirtle');
@@ -31,10 +25,10 @@ class TypeModifierCalculatorTest extends TestCase
         $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertEquals(DamageType::DOUBLE_DAMAGE, $typeModifier->getId());
+        $this->assertContains($typeModifier->getId(), [DamageType::DOUBLE_DAMAGE, DamageType::MISSED, DamageType::CRITICAL_2XDAMAGE]);
     }
 
-    public function testHalfDamagePokemon()
+    public function testHalfDamageAttack()
     {
         $player = $this->pokemonRepository->findByName('Pikachu');
         $against = $this->pokemonRepository->findByName('Pikachu');
@@ -45,10 +39,10 @@ class TypeModifierCalculatorTest extends TestCase
         $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertEquals(DamageType::HALF_DAMAGE, $typeModifier->getId());
+        $this->assertContains($typeModifier->getId(), [DamageType::HALF_DAMAGE, DamageType::MISSED, DamageType::CRITICAL_HALF_DAMAGE]);
     }
 
-    public function testNormalDamagePokemon()
+    public function testNormalDamageAttack()
     {
         $player = $this->pokemonRepository->findByName('Pikachu');
         $against = $this->pokemonRepository->findByName('Charmander');
@@ -59,7 +53,6 @@ class TypeModifierCalculatorTest extends TestCase
         $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertEquals(DamageType::NORMAL, $typeModifier->getId());
+        $this->assertContains($typeModifier->getId(), [DamageType::NORMAL, DamageType::MISSED, DamageType::CRITICAL]);
     }
-    */
 }
