@@ -27,11 +27,12 @@ class Pokemon implements \JsonSerializable
         $this->attacks = $attacks;
     }
 
-    public function hit(Attack $attack, Pokemon &$against)
+    public function hit(Attack $attack, Pokemon $against)
     {
         $against->receivedAttack = $attack;
+        $randomness = rand(1, 100);
 
-        $damageCalculator = new DamageCalculator($against->receivedAttack, $against);
+        $damageCalculator = new DamageCalculator($against->receivedAttack, $against, $randomness);
         $against->receivedDamage = $damageCalculator->calculate();
         $against->health -= $against->receivedDamage->getDamage();
     }
@@ -44,7 +45,7 @@ class Pokemon implements \JsonSerializable
     public function getReceivedAttack()
     {
         if (!isset($this->receivedAttack)) {
-            throw new \Exception("Pokémon was not attacked yet");
+            throw new \Exception('Pokémon was not attacked yet');
         }
 
         return $this->receivedAttack;
@@ -53,7 +54,7 @@ class Pokemon implements \JsonSerializable
     public function getReceivedDamage()
     {
         if (!isset($this->receivedDamage)) {
-            throw new \Exception("Pokémon was not attacked yet");
+            throw new \Exception('Pokémon was not attacked yet');
         }
 
         return $this->receivedDamage;
@@ -149,5 +150,4 @@ class Pokemon implements \JsonSerializable
     {
         return $this->defense;
     }
-
 }

@@ -1,46 +1,30 @@
 <?php namespace App;
 
-class DamageCalculator {
+class DamageCalculator
+{
     private $playerAttack;
     private $againstPokemon;
+    private $randomness;
 
-    public function __construct(Attack $playerAttack, Pokemon $against)
+    public function __construct(Attack $playerAttack, Pokemon $against, $randomness)
     {
         $this->playerAttack = $playerAttack;
         $this->againstPokemon = $against;
+        $this->randomness = $randomness;
     }
 
     public function calculate()
     {
         $playerPokemon = $this->playerAttack->getPokemon();
 
-        $typeModifierCalc = new TypeModifierCalculator($this->playerAttack, $this->againstPokemon);
+        $typeModifierCalc = new TypeModifierCalculator($this->playerAttack, $this->againstPokemon, $this->randomness);
         $playerTypeModifier = $typeModifierCalc->calculate();
 
         $strength = 10 * $playerPokemon->getAttack() * $this->playerAttack->getPower();
-        $causedDamage = ceil((((((($strength / $this->againstPokemon->getDefense()) / 50) + 2) * 1) * $playerTypeModifier->getMultiplier() / 10) * rand(217, 255)) / 255);
+        $attackRatio = (((($strength / $this->againstPokemon->getDefense()) / 50) + 2) * 1);
+        $attackRatioWithMultiplier = ($attackRatio * $playerTypeModifier->getMultiplier() / 10);
+        $causedDamage = ceil(($attackRatioWithMultiplier * rand(217, 255)) / 255);
 
         return new Damage($causedDamage, $playerTypeModifier);
     }
-
-    /**
-     * Get the value of Player Attack
-     *
-     * @return mixed
-     */
-    public function getPlayerAttack()
-    {
-        return $this->playerAttack;
-    }
-
-    /**
-     * Get the value of Against Pokemon
-     *
-     * @return mixed
-     */
-    public function getAgainstPokemon()
-    {
-        return $this->againstPokemon;
-    }
-
 }

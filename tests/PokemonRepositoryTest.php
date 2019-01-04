@@ -45,7 +45,7 @@ class PokemonRepositoryTest extends TestCase
     public function testExceptionIfNotReceivedDamage()
     {
         $this->pokemonRepository->findByName('Charmander')->getReceivedDamage();
-    }    
+    }
 
     /**
      * @expectedException Exception
@@ -53,7 +53,7 @@ class PokemonRepositoryTest extends TestCase
     public function testExceptionIfNotReceivedAttack()
     {
         $this->pokemonRepository->findByName('Charmander')->getReceivedAttack();
-    }    
+    }
 
     public function testAvatarExists()
     {

@@ -1,8 +1,10 @@
 <?php namespace App;
 
-class TypeModifierCalculator {
+class TypeModifierCalculator
+{
     private $playerAttack;
     private $againstPokemon;
+    private $randomness;
 
     private $multipliers = [
         [1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,0],
@@ -25,22 +27,22 @@ class TypeModifierCalculator {
         [1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,2,2,0.5,1]
     ];
 
-    public function __construct(Attack $playerAttack, Pokemon $against)
+    public function __construct(Attack $playerAttack, Pokemon $against, $randomness)
     {
         $this->playerAttack = $playerAttack;
         $this->againstPokemon = $against;
+        $this->randomness = $randomness;
     }
 
     public function calculate()
     {
-        $accuracy = rand(1, 100);
         $typeModifier = $this->calculateTypeModifier($this->playerAttack);
 
-        if ($accuracy >= 90) {
+        if ($this->randomness >= 90) {
             $typeModifier->defineCritical();
         }
 
-        if ($accuracy <= 10) {
+        if ($this->randomness <= 10) {
             $typeModifier->defineMissed();
         }
 
@@ -53,18 +55,18 @@ class TypeModifierCalculator {
         $attack = AttackType::getValue($playerAttack->getType());
         $multiplier = $this->multipliers[$attack][$defense];
 
-        if ($multiplier > 0) {
-            if ($multiplier == 1)
-                return new TypeModifier(DamageType::NORMAL);
-
-            if ($multiplier > 1)
-                return new TypeModifier(DamageType::DOUBLE_DAMAGE);
-
-            if ($multiplier < 1)
-                return new TypeModifier(DamageType::HALF_DAMAGE);
+        if ($multiplier === 1) {
+            return new TypeModifier(DamageType::NORMAL);
         }
 
-        return new TypeModifier(DamageType::NO_DAMAGE);
+        if ($multiplier > 1) {
+            return new TypeModifier(DamageType::DOUBLE_DAMAGE);
+        }
 
+        if ($multiplier === 0) {
+            return new TypeModifier(DamageType::NO_DAMAGE);
+        }
+
+        return new TypeModifier(DamageType::HALF_DAMAGE);
     }
 }

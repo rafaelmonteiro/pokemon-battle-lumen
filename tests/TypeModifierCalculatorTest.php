@@ -8,10 +8,12 @@ use App\DamageType;
 class TypeModifierCalculatorTest extends TestCase
 {
     private $pokemonRepository;
+    private $randomness;
 
     public function setUp()
     {
         $this->pokemonRepository = new PokemonRepository();
+        $this->randomness = 50;
     }
 
     public function testDoubleDamageAttack()
@@ -22,10 +24,10 @@ class TypeModifierCalculatorTest extends TestCase
         $attackRepository = new AttackRepository($player);
         $attack = $attackRepository->findByName('Thunderbolt');
 
-        $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against, $this->randomness);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertContains($typeModifier->getId(), [DamageType::DOUBLE_DAMAGE, DamageType::MISSED, DamageType::CRITICAL_2XDAMAGE]);
+        $this->assertEquals($typeModifier->getId(), DamageType::DOUBLE_DAMAGE);
     }
 
     public function testHalfDamageAttack()
@@ -36,10 +38,10 @@ class TypeModifierCalculatorTest extends TestCase
         $attackRepository = new AttackRepository($player);
         $attack = $attackRepository->findByName('Thunderbolt');
 
-        $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against, $this->randomness);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertContains($typeModifier->getId(), [DamageType::HALF_DAMAGE, DamageType::MISSED, DamageType::CRITICAL_HALF_DAMAGE]);
+        $this->assertEquals($typeModifier->getId(), DamageType::HALF_DAMAGE);
     }
 
     public function testNormalDamageAttack()
@@ -50,9 +52,39 @@ class TypeModifierCalculatorTest extends TestCase
         $attackRepository = new AttackRepository($player);
         $attack = $attackRepository->findByName('Thunderbolt');
 
-        $typeModifierCalculator = new TypeModifierCalculator($attack, $against);
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against, $this->randomness);
         $typeModifier = $typeModifierCalculator->calculate();
 
-        $this->assertContains($typeModifier->getId(), [DamageType::NORMAL, DamageType::MISSED, DamageType::CRITICAL]);
+        $this->assertEquals($typeModifier->getId(), DamageType::NORMAL);
+    }
+
+    public function testMissedAttack()
+    {
+        $player = $this->pokemonRepository->findByName('Charmander');
+        $against = $this->pokemonRepository->findByName('Squirtle');
+
+        $attackRepository = new AttackRepository($player);
+        $attack = $attackRepository->findByName('Ember');
+
+        $this->randomness = 5;
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against, $this->randomness);
+        $typeModifier = $typeModifierCalculator->calculate();
+
+        $this->assertEquals($typeModifier->getId(), DamageType::MISSED);
+    }
+
+    public function testCriticalDamageAttack()
+    {
+        $player = $this->pokemonRepository->findByName('Pikachu');
+        $against = $this->pokemonRepository->findByName('Charmander');
+
+        $attackRepository = new AttackRepository($player);
+        $attack = $attackRepository->findByName('Thunderbolt');
+
+        $this->randomness = 95;
+        $typeModifierCalculator = new TypeModifierCalculator($attack, $against, $this->randomness);
+        $typeModifier = $typeModifierCalculator->calculate();
+
+        $this->assertEquals($typeModifier->getId(), DamageType::CRITICAL);
     }
 }
