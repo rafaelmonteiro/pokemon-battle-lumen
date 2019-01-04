@@ -1,11 +1,11 @@
-<?php 
-namespace App\Repositories;
+<?php namespace App\Repositories;
 
 use Illuminate\Filesystem\Filesystem;
 use App\Exceptions\PokemonNotFoundException;
 use App\Pokemon;
 
-class PokemonRepository {
+class PokemonRepository
+{
     private $filesystem;
 
     public function __construct()

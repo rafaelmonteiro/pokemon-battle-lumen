@@ -1,6 +1,7 @@
 <?php namespace App;
 
-class Damage {
+class Damage
+{
     private $damage;
     private $typeModifier;
 

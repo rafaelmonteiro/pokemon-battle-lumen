@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\DamageType;
-
 class TypeModifier
 {
     private $id;
@@ -41,16 +39,16 @@ class TypeModifier
 
     public function defineCritical()
     {
-        if($this->id == DamageType::DOUBLE_DAMAGE){
+        if ($this->id === DamageType::DOUBLE_DAMAGE) {
             $this->id = DamageType::CRITICAL_2XDAMAGE;
             $this->description = $this->descriptions[DamageType::CRITICAL_2XDAMAGE];
-            $this->multiplier = $this->multipliers[DamageType::CRITICAL_2XDAMAGE];        
+            $this->multiplier = $this->multipliers[DamageType::CRITICAL_2XDAMAGE];
             return;
         }
-        if($this->id == DamageType::HALF_DAMAGE){
+        if ($this->id === DamageType::HALF_DAMAGE) {
             $this->id = DamageType::CRITICAL_HALF_DAMAGE;
             $this->description = $this->descriptions[DamageType::CRITICAL_HALF_DAMAGE];
-            $this->multiplier = $this->multipliers[DamageType::CRITICAL_HALF_DAMAGE];        
+            $this->multiplier = $this->multipliers[DamageType::CRITICAL_HALF_DAMAGE];
             return;
         }
 

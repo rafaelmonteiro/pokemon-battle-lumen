@@ -1,6 +1,7 @@
 <?php namespace App;
 
-class AttackType {
+class AttackType
+{
     const TYPE_NORMAL = 0;
     const TYPE_FIRE = 1;
     const TYPE_WATER = 2;

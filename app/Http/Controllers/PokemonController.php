@@ -70,20 +70,20 @@ class PokemonController extends Controller
         $against->hit($randomAgainstAttack, $player);
 
         return [
-            "player"=> [
-                "name" => $player->getName(),
-                "currentHealth" => $player->getHealth(),
-                "damage" => $against->getReceivedDamage()->getDamage(),
-                "desc" => $against->getReceivedDamage()->getTypeModifier()->getDescription(),
-                "desc_id" => $against->getReceivedDamage()->getTypeModifier()->getId(),
+            'player'=> [
+                'name' => $player->getName(),
+                'currentHealth' => $player->getHealth(),
+                'damage' => $against->getReceivedDamage()->getDamage(),
+                'desc' => $against->getReceivedDamage()->getTypeModifier()->getDescription(),
+                'desc_id' => $against->getReceivedDamage()->getTypeModifier()->getId(),
             ],
-            "against"=>[
-                "name" => $against->getName(),
-                "currentHealth" => $against->getHealth(),
-                "attack" => $player->getReceivedAttack()->getName(),
-                "damage" => $player->getReceivedDamage()->getDamage(),
-                "desc" => $player->getReceivedDamage()->getTypeModifier()->getDescription(),
-                "desc_id" => $player->getReceivedDamage()->getTypeModifier()->getId(),
+            'against'=>[
+                'name' => $against->getName(),
+                'currentHealth' => $against->getHealth(),
+                'attack' => $player->getReceivedAttack()->getName(),
+                'damage' => $player->getReceivedDamage()->getDamage(),
+                'desc' => $player->getReceivedDamage()->getTypeModifier()->getDescription(),
+                'desc_id' => $player->getReceivedDamage()->getTypeModifier()->getId(),
             ]
         ];
     }

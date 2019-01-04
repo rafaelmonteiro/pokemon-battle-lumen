@@ -1,6 +1,7 @@
 <?php namespace App;
 
-class Attack {
+class Attack
+{
     private $pokemon;
     private $name;
     private $power;

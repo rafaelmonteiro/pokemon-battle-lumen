@@ -4,7 +4,8 @@ use App\Exceptions\AttackNotFoundException;
 use App\Pokemon;
 use App\Attack;
 
-class AttackRepository {
+class AttackRepository
+{
     private $attacks;
     private $pokemon;
 
