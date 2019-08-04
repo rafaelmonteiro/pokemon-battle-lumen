@@ -2,11 +2,6 @@
 
 class PokemonControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testStructureAll()
     {
         $this->json('GET', '/all')
@@ -28,6 +23,12 @@ class PokemonControllerTest extends TestCase
     {
         $this->json('POST', '/select', ['name' => 'Agumon'])
             ->seeStatusCode(404);
+    }
+
+    public function testSelectValidPlayer()
+    {
+        $this->json('POST', '/select', ['name' => 'Charmander'])
+            ->seeStatusCode(200);
     }
 
     public function testSelectPlayerNoRequestData()
@@ -83,5 +84,20 @@ class PokemonControllerTest extends TestCase
                 'currentHealth' => 100
             ],
         ])->seeStatusCode(200);
+    }
+
+    public function testHitInvalidAttack()
+    {
+        $this->json('POST', '/hit', [
+            'player' => [
+                'name' => 'Charmander',
+                'attack' => 'Dragons Wrath',
+                'currentHealth' => 100
+            ],
+            'against' => [
+                'name' => 'Pikachu',
+                'currentHealth' => 100
+            ],
+        ])->seeStatusCode(404);
     }
 }

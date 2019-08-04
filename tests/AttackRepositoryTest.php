@@ -29,9 +29,14 @@ class AttackRepositoryTest extends TestCase
     {
         $this->attackRepository->findByName('Mawashi geri');
     }
-    
+
     public function testGetRandom()
     {
         $this->assertNotNull($this->attackRepository->getRandom());
+    }
+
+    public function testIfAccuracyMatches()
+    {
+        $this->assertEquals(90, $this->attackRepository->findByName('Thunderbolt')->getAccuracy());
     }
 }

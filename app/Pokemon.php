@@ -103,7 +103,7 @@ class Pokemon implements \JsonSerializable
     /**
      * Set the value of Health
      *
-     * @return this
+     * @return Pokemon
      */
     public function setHealth($value)
     {
