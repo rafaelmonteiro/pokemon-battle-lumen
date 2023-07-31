@@ -3,7 +3,7 @@
     "api/index.php": {
       "runtime": "vercel-php@0.3.3"
     },
-    "/public/**": {
+    "public/**": {
       "runtime": "@vercel/static" 
     }
   },
