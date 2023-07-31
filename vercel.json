@@ -3,5 +3,9 @@
     "api/index.php": {
       "runtime": "vercel-php@0.3.3"
     }
-  }
+  },
+  "routes": [
+    { "src": "/images",  "dest": "/public/images" },
+    { "src": "/(.*)",  "dest": "/api/index.php" }
+  ]
 }
