@@ -24,8 +24,7 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap
     - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      uses: qltysh/qlty-action/coverage@v2
       with:
-        coverageCommand: vendor/bin/phpunit --coverage-clover clover.xml
+        token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+        files: coverage/clover.xml
